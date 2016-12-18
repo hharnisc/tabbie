@@ -14,7 +14,7 @@ const createTabs = (urls) => new Promise((resolve) => {
 });
 
 
-const createWindowListItem = (name, id) => {
+const createTabListItem = (name, id) => {
   const listItem = document.createElement('li');
   const listItemContent = document.createTextNode(name);
   listItem.setAttribute('class', 'window-list-item');
@@ -23,15 +23,15 @@ const createWindowListItem = (name, id) => {
   return listItem;
 }
 
-const createWindowList = (windowData) => {
+const createTabGroupList = (tabGroupData) => {
   const windowList = document.createElement('ul');
-  windowData.forEach((window, index) => {
-    windowList.appendChild(createWindowListItem(window.name, index));
+  tabGroupData.forEach((window, index) => {
+    windowList.appendChild(createTabListItem(window.name, index));
   });
   return windowList;
 };
 
-const createEmptyList = () => {
+const createEmptyTabGroupList = () => {
   const emptyList = document.createElement('div');
   const emptyListContent = document.createTextNode('No saved tab groups... yet');
   emptyList.setAttribute('class', 'window-list--empty');
@@ -39,15 +39,15 @@ const createEmptyList = () => {
   return emptyList;
 };
 
-const displayWindows = (windowData) => {
-  let listContent;
-  if (windowData.length) {
-    listContent = createWindowList(windowData);
+const displayTabGroupList = (tabGroupData) => {
+  let tabGroupListContent;
+  if (tabGroupData.length) {
+    tabGroupListContent = createTabGroupList(tabGroupData);
   } else {
-    listContent = createEmptyList();
+    tabGroupListContent = createEmptyTabGroupList();
   }
   const listElement = document.getElementsByClassName('list')[0];
-  listElement.appendChild(listContent);
+  listElement.appendChild(tabGroupListContent);
 
 };
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
     }
   ];
-  displayWindows(fakeWindowData);
+  displayTabGroupList(fakeWindowData);
   // getSelectedTabUrls()
   //   .then((tabs) => createTabs(tabs))
   //   .then((window) => console.log(window));
