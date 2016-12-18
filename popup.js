@@ -22,12 +22,22 @@ const createOpenButton = (id) => {
   return openButton;
 };
 
+const createRemoveButton = (id) => {
+  const remove = document.createElement('button');
+  const buttonText = document.createTextNode('remove');
+  remove.setAttribute('class', 'tab-group-remove');
+  remove.setAttribute('data-tab-group-id', id);
+  remove.appendChild(buttonText);
+  return remove;
+};
+
 const createTabListItem = (name, id) => {
   const listItem = document.createElement('li');
   const listItemContent = document.createTextNode(name);
   listItem.setAttribute('class', 'tab-group-list-item');
   listItem.appendChild(listItemContent);
   listItem.appendChild(createOpenButton(id));
+  listItem.appendChild(createRemoveButton(id));
   return listItem;
 }
 
@@ -71,8 +81,13 @@ const getTabGroups = () => new Promise((resolve) => {
   chrome.storage.local.get(null, (tabGroups) => resolve(tabGroups.tabGroups || []));
 });
 
-const saveTabGroup = (newTabGroup, tabGroups) => {
+const addTabGroup = (newTabGroup, tabGroups) => {
   tabGroups.push(newTabGroup);
+  chrome.storage.local.set({ tabGroups });
+};
+
+const removeTabGroup = (id, tabGroups) => {
+  tabGroups.splice(id, 1);
   chrome.storage.local.set({ tabGroups });
 };
 
@@ -88,12 +103,16 @@ const updateAndBindTabGroupList = () => {
         const tabGroupId = e.target.dataset.tabGroupId;
         createTabs(tabGroups[tabGroupId].tabs);
       });
+      bindClickHandlers('tab-group-remove', (e) => {
+        const tabGroupId = e.target.dataset.tabGroupId;
+        removeTabGroup(tabGroupId, tabGroups);
+      });
       bindClickHandlers('tab-group-save', (e) => {
         e.preventDefault();
         const newTabGroupName = document.getElementById('tab-group-new-name').value;
         if (newTabGroupName) {
           getSelectedTabUrls().then((tabs) => {
-            saveTabGroup({
+            addTabGroup({
                 name: newTabGroupName,
                 tabs,
               },
