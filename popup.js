@@ -67,27 +67,35 @@ const bindClickHandlers = (elementClass, clickhandler) => {
   }
 };
 
+const getTabGroups = () => new Promise((resolve, reject) => {
+  chrome.storage.local.get(null, (tabGroups) => resolve(tabGroups));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-  const tabGroups = [
-    {
-      name: 'Stuff',
-      tabs: [
-        'https://google.com',
-        'https://news.ycombinator.com',
-      ],
-    },
-    {
-      name: 'Things',
-      tabs: [
-        'https://buffer.com'
-      ],
-    }
-  ];
-  displayTabGroupList(tabGroups);
-  bindClickHandlers('tab-group-open', (e) => {
-    const tabGroupId = e.target.dataset.tabGroupId;
-    createTabs(tabGroups[tabGroupId].tabs);
-  })
+  // const tabGroups = [
+  //   {
+  //     name: 'Stuff',
+  //     tabs: [
+  //       'https://google.com',
+  //       'https://news.ycombinator.com',
+  //     ],
+  //   },
+  //   {
+  //     name: 'Things',
+  //     tabs: [
+  //       'https://buffer.com'
+  //     ],
+  //   }
+  // ];
+  const tabGroups = getTabGroups()
+    .then((tabGroups) => {
+      console.log(tabGroups);
+      displayTabGroupList(tabGroups);
+      bindClickHandlers('tab-group-open', (e) => {
+        const tabGroupId = e.target.dataset.tabGroupId;
+        createTabs(tabGroups[tabGroupId].tabs);
+      });
+    });
   // getSelectedTabUrls()
   //   .then((tabs) => createTabs(tabs))
   //   .then((window) => console.log(window));
