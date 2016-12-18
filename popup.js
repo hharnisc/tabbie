@@ -31,9 +31,24 @@ const createWindowList = (windowData) => {
   return windowList;
 };
 
+const createEmptyList = () => {
+  const emptyList = document.createElement('div');
+  const emptyListContent = document.createTextNode('No saved tab groups... yet');
+  emptyList.setAttribute('class', 'window-list--empty');
+  emptyList.appendChild(emptyListContent);
+  return emptyList;
+};
+
 const displayWindows = (windowData) => {
-  var list = document.getElementsByClassName('list')[0];
-  list.appendChild(createWindowList(windowData));
+  let listContent;
+  if (windowData.length) {
+    listContent = createWindowList(windowData);
+  } else {
+    listContent = createEmptyList();
+  }
+  const listElement = document.getElementsByClassName('list')[0];
+  listElement.appendChild(listContent);
+
 };
 
 document.addEventListener('DOMContentLoaded', () => {
