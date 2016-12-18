@@ -112,7 +112,8 @@ const updateAndBindTabGroupList = () => {
       });
       bindClickHandlers('tab-group-save', (e) => {
         e.preventDefault();
-        const newTabGroupName = document.getElementById('tab-group-new-name').value;
+        const tabGroupNameInput = document.getElementById('tab-group-new-name')
+        const newTabGroupName = tabGroupNameInput.value;
         if (newTabGroupName) {
           getSelectedTabUrls().then((tabs) => {
             addTabGroup({
@@ -121,6 +122,7 @@ const updateAndBindTabGroupList = () => {
               },
               tabGroups
             );
+            tabGroupNameInput.value = '';
           });
         }
       });
