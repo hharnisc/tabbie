@@ -3,11 +3,13 @@
 
   "name": "Save Chrome Tabs",
   "description": "This extension let's you save a group of chrome tabs for later",
-  "version": "1.0",
+  "version": "0.1",
 
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-  "permissions": []
+  "permissions": [
+    "tabs"
+  ]
 }
