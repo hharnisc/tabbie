@@ -13,13 +13,21 @@ const createTabs = (urls) => new Promise((resolve) => {
   }, (window) => resolve(window));
 });
 
+const createOpenButton = (id) => {
+  const openButton = document.createElement('button');
+  const buttonText = document.createTextNode('open');
+  openButton.setAttribute('class', 'tab-group-open');
+  openButton.setAttribute('data-tab-group-id', id);
+  openButton.appendChild(buttonText);
+  return openButton;
+};
 
 const createTabListItem = (name, id) => {
   const listItem = document.createElement('li');
   const listItemContent = document.createTextNode(name);
-  listItem.setAttribute('class', 'window-list-item');
-  listItem.setAttribute('data-window-id', id);
+  listItem.setAttribute('class', 'tab-group-list-item');
   listItem.appendChild(listItemContent);
+  listItem.appendChild(createOpenButton(id));
   return listItem;
 }
 
@@ -34,7 +42,7 @@ const createTabGroupList = (tabGroupData) => {
 const createEmptyTabGroupList = () => {
   const emptyList = document.createElement('div');
   const emptyListContent = document.createTextNode('No saved tab groups... yet');
-  emptyList.setAttribute('class', 'window-list--empty');
+  emptyList.setAttribute('class', 'tab-group-list--empty');
   emptyList.appendChild(emptyListContent);
   return emptyList;
 };
@@ -51,24 +59,35 @@ const displayTabGroupList = (tabGroupData) => {
 
 };
 
+const bindClickHandlers = (elementClass, clickhandler) => {
+  const elements = document.getElementsByClassName(elementClass);
+  for(let i = 0; i < elements.length; i++) {
+    var element = elements[i];
+    element.onclick = clickhandler;
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  const fakeWindowData = [
+  const tabGroups = [
     {
       name: 'Stuff',
-      urls: [
+      tabs: [
         'https://google.com',
         'https://news.ycombinator.com',
       ],
     },
     {
       name: 'Things',
-      urls: [
-        'https://google.com',
-        'https://news.ycombinator.com',
+      tabs: [
+        'https://buffer.com'
       ],
     }
   ];
-  displayTabGroupList(fakeWindowData);
+  displayTabGroupList(tabGroups);
+  bindClickHandlers('tab-group-open', (e) => {
+    const tabGroupId = e.target.dataset.tabGroupId;
+    createTabs(tabGroups[tabGroupId].tabs);
+  })
   // getSelectedTabUrls()
   //   .then((tabs) => createTabs(tabs))
   //   .then((window) => console.log(window));
