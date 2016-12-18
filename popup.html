@@ -19,6 +19,10 @@
       .tab-group-list-item, .tabs-body, .form-controls {
         display: flex;
       }
+      .tab-group-list-item {
+        align-items: center;
+        padding: 5;
+      }
       .tabs-body, .form-controls {
         flex-direction: column;
       }
@@ -36,6 +40,9 @@
         border: 1px solid #808080;
         margin: 0;
         width: 100%;
+        padding: 8px;
+        font-size: 12px;
+        box-sizing: border-box
       }
       input.invalid {
         border: 1px solid #EA4335;
@@ -46,13 +53,15 @@
       .tab-group-save {
         float: right;
         margin-top: 20px;
+        padding: 10px;
       }
       button {
         border: 1px solid #4285F4;
+        border: none;
         color: #4285F4;
         background: white;
         border-radius: 3px;
-        padding: 4px;
+        padding: 5px;
         cursor: pointer;
         outline: none;
       }
@@ -61,12 +70,14 @@
         color: white;
       }
       button.danger{
-        border: 1px solid #EA4335;
         color: #EA4335;
       }
       button.danger:hover {
         background: #EA4335;
         color: white;
+      }
+      .list button {
+        margin-left: 10px;
       }
     </style>
   </head>
