@@ -33,9 +33,12 @@ const createRemoveButton = (id) => {
 
 const createTabListItem = (name, id) => {
   const listItem = document.createElement('li');
+  const listItemContentElement = document.createElement('div');
   const listItemContent = document.createTextNode(name);
+  listItemContentElement.setAttribute('class', 'tab-group-list-item-content');
   listItem.setAttribute('class', 'tab-group-list-item');
-  listItem.appendChild(listItemContent);
+  listItemContentElement.appendChild(listItemContent);
+  listItem.appendChild(listItemContentElement);
   listItem.appendChild(createOpenButton(id));
   listItem.appendChild(createRemoveButton(id));
   return listItem;
