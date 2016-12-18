@@ -110,9 +110,11 @@ const updateAndBindTabGroupList = () => {
         const tabGroupId = e.target.dataset.tabGroupId;
         removeTabGroup(tabGroupId, tabGroups);
       });
+      const tabGroupNameInput = document.getElementById('tab-group-new-name')
+      tabGroupNameInput.onblur = () => tabGroupNameInput.classList.remove('invalid');
       bindClickHandlers('tab-group-save', (e) => {
         e.preventDefault();
-        const tabGroupNameInput = document.getElementById('tab-group-new-name')
+
         const newTabGroupName = tabGroupNameInput.value;
         if (newTabGroupName) {
           getSelectedTabUrls().then((tabs) => {
@@ -124,6 +126,8 @@ const updateAndBindTabGroupList = () => {
             );
             tabGroupNameInput.value = '';
           });
+        } else {
+          tabGroupNameInput.classList.add('invalid');
         }
       });
     });
