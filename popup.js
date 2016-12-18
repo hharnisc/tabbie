@@ -7,7 +7,7 @@ const getSelectedTabUrls = () => new Promise((resolve) => {
   });
 });
 
-const createTabs = (urls) => new Promise(function(resolve, reject) {
+const createTabs = (urls) => new Promise((resolve) => {
   chrome.windows.create({
     url: urls,
   }, (window) => resolve(window));
