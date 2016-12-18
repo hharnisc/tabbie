@@ -21,6 +21,21 @@
         display: flex;
         flex-direction: column;
       }
+      input[type=text] {
+        -webkit-appearance: none;
+        outline: none;
+        border: 1px solid #333;
+        margin: 0;
+      }
+      input:focus {
+        box-shadow: 0 0 5px 1px #51cbee;
+      }
+      input:invalid {
+        box-shadow: 0 0 5px 1px #ee7451;
+      }
+      input:focus:invalid {
+        box-shadow: 0 0 5px 1px #51cbee;
+      }
     </style>
   </head>
   <body>
@@ -28,8 +43,10 @@
       <h2 class="header">Saved Tab Groups</h2>
       <div class="list"></div>
       <div class="controls">
-        <input type="text" value="" placeholder="Tab Group Name">
-        <button>Save Selected Tabs</button>
+        <form>
+          <input type="text" id="tab-group-new-name" value="" placeholder="Tab Group Name" required>
+          <button class="tab-group-save">Save Selected Tabs</button>
+        </form>
       </div>
     </div>
   </body>

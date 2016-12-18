@@ -96,6 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
         createTabs(tabGroups[tabGroupId].tabs);
       });
     });
+    // hook into the tab group save click event
+    bindClickHandlers('tab-group-save', (e) => {
+      e.preventDefault();
+      const newTabGroupName = document.getElementById('tab-group-new-name').value;
+      console.log('newTabGroupName', newTabGroupName);
+    });
   // getSelectedTabUrls()
   //   .then((tabs) => createTabs(tabs))
   //   .then((window) => console.log(window));
