@@ -1,4 +1,4 @@
-const getSelectedTabs = () => new Promise((resolve) => {
+const getSelectedTabUrls = () => new Promise((resolve) => {
   chrome.tabs.query({
       highlighted: true,
       lastFocusedWindow: true,
@@ -7,7 +7,14 @@ const getSelectedTabs = () => new Promise((resolve) => {
   });
 });
 
+const createTabs = (urls) => new Promise(function(resolve, reject) {
+  chrome.windows.create({
+    url: urls,
+  }, (window) => resolve(window));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-  getSelectedTabs()
-    .then((tabs) => console.log(tabs));
+  getSelectedTabUrls()
+    .then((tabs) => createTabs(tabs))
+    .then((window) => console.log(window));
 });
