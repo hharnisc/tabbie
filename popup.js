@@ -32,7 +32,7 @@ const createWindowList = (windowData) => {
 };
 
 const displayWindows = (windowData) => {
-  var root = document.getElementById('root');
+  var root = document.getElementById('list');
   root.appendChild(createWindowList(windowData));
 };
 
