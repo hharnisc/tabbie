@@ -13,8 +13,48 @@ const createTabs = (urls) => new Promise((resolve) => {
   }, (window) => resolve(window));
 });
 
+
+const createWindowListItem = (name, id) => {
+  const listItem = document.createElement('li');
+  const listItemContent = document.createTextNode(name);
+  listItem.setAttribute('class', 'window-list-item');
+  listItem.setAttribute('data-window-id', id);
+  listItem.appendChild(listItemContent);
+  return listItem;
+}
+
+const createWindowList = (windowData) => {
+  const windowList = document.createElement('ul');
+  windowData.forEach((window, index) => {
+    windowList.appendChild(createWindowListItem(window.name, index));
+  });
+  return windowList;
+};
+
+const displayWindows = (windowData) => {
+  var root = document.getElementById('root');
+  root.appendChild(createWindowList(windowData));
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  getSelectedTabUrls()
-    .then((tabs) => createTabs(tabs))
-    .then((window) => console.log(window));
+  const fakeWindowData = [
+    {
+      name: 'Stuff',
+      urls: [
+        'https://google.com',
+        'https://news.ycombinator.com',
+      ],
+    },
+    {
+      name: 'Things',
+      urls: [
+        'https://google.com',
+        'https://news.ycombinator.com',
+      ],
+    }
+  ];
+  displayWindows(fakeWindowData);
+  // getSelectedTabUrls()
+  //   .then((tabs) => createTabs(tabs))
+  //   .then((window) => console.log(window));
 });
