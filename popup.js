@@ -25,7 +25,7 @@ const createOpenButton = (id) => {
 const createRemoveButton = (id) => {
   const remove = document.createElement('button');
   const buttonText = document.createTextNode('remove');
-  remove.setAttribute('class', 'tab-group-remove');
+  remove.setAttribute('class', 'tab-group-remove danger');
   remove.setAttribute('data-tab-group-id', id);
   remove.appendChild(buttonText);
   return remove;
