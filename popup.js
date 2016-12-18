@@ -32,8 +32,8 @@ const createWindowList = (windowData) => {
 };
 
 const displayWindows = (windowData) => {
-  var root = document.getElementById('list');
-  root.appendChild(createWindowList(windowData));
+  var list = document.getElementsByClassName('list')[0];
+  list.appendChild(createWindowList(windowData));
 };
 
 document.addEventListener('DOMContentLoaded', () => {

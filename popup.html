@@ -8,17 +8,22 @@
         list-style-type: none;
         padding: 0;
       }
+      .list {
+        flex-grow: 1;
+      }
       .tabs-body {
         width: 300px;
         height: 400px;
         padding: 0 10px;
+        display: flex;
+        flex-direction: column;
       }
     </style>
   </head>
   <body>
     <div class="tabs-body">
       <h2 class="header">Saved Tab Groups</h2>
-      <div id="list"></div>
+      <div class="list"></div>
       <div class="controls">
         <input type="text" value="" placeholder="Tab Group Name">
         <button>Save Selected Tabs</button>
