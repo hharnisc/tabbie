@@ -55,8 +55,8 @@ const displayTabGroupList = (tabGroupData) => {
     tabGroupListContent = createEmptyTabGroupList();
   }
   const listElement = document.getElementsByClassName('list')[0];
+  listElement.innerHTML = '';
   listElement.appendChild(tabGroupListContent);
-
 };
 
 const bindClickHandlers = (elementClass, clickhandler) => {
@@ -67,42 +67,45 @@ const bindClickHandlers = (elementClass, clickhandler) => {
   }
 };
 
-const getTabGroups = () => new Promise((resolve, reject) => {
-  chrome.storage.local.get(null, (tabGroups) => resolve(tabGroups));
+const getTabGroups = () => new Promise((resolve) => {
+  chrome.storage.local.get(null, (tabGroups) => resolve(tabGroups.tabGroups || []));
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  // const tabGroups = [
-  //   {
-  //     name: 'Stuff',
-  //     tabs: [
-  //       'https://google.com',
-  //       'https://news.ycombinator.com',
-  //     ],
-  //   },
-  //   {
-  //     name: 'Things',
-  //     tabs: [
-  //       'https://buffer.com'
-  //     ],
-  //   }
-  // ];
-  const tabGroups = getTabGroups()
+const saveTabGroup = (newTabGroup, tabGroups) => {
+  tabGroups.push(newTabGroup);
+  chrome.storage.local.set({ tabGroups });
+};
+
+const clearTabGroups = () => new Promise((resolve) => {
+  chrome.storage.local.clear(() => resolve());
+});
+
+const updateAndBindTabGroupList = () => {
+  getTabGroups()
     .then((tabGroups) => {
-      console.log(tabGroups);
       displayTabGroupList(tabGroups);
       bindClickHandlers('tab-group-open', (e) => {
         const tabGroupId = e.target.dataset.tabGroupId;
         createTabs(tabGroups[tabGroupId].tabs);
       });
+      bindClickHandlers('tab-group-save', (e) => {
+        e.preventDefault();
+        const newTabGroupName = document.getElementById('tab-group-new-name').value;
+        if (newTabGroupName) {
+          getSelectedTabUrls().then((tabs) => {
+            saveTabGroup({
+                name: newTabGroupName,
+                tabs,
+              },
+              tabGroups
+            );
+          });
+        }
+      });
     });
-    // hook into the tab group save click event
-    bindClickHandlers('tab-group-save', (e) => {
-      e.preventDefault();
-      const newTabGroupName = document.getElementById('tab-group-new-name').value;
-      console.log('newTabGroupName', newTabGroupName);
-    });
-  // getSelectedTabUrls()
-  //   .then((tabs) => createTabs(tabs))
-  //   .then((window) => console.log(window));
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateAndBindTabGroupList();
+  chrome.storage.onChanged.addListener(() => updateAndBindTabGroupList());
 });
