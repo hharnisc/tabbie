@@ -85,21 +85,34 @@ const bindClickHandlers = (elementClass, clickhandler) => {
 };
 
 const getTabGroups = () => new Promise((resolve) => {
-  chrome.storage.local.get(null, (tabGroups) => resolve(tabGroups.tabGroups || []));
+  chrome.storage.sync.get(null, (tabGroups) => resolve(tabGroups.tabGroups || []));
 });
 
 const addTabGroup = (newTabGroup, tabGroups) => {
   tabGroups.push(newTabGroup);
-  chrome.storage.local.set({ tabGroups });
+  chrome.storage.sync.set({ tabGroups }, () => {
+    if (chrome.runtime.error) {
+      console.error(chrome.runtime.error);
+    }
+  });
 };
 
 const removeTabGroup = (id, tabGroups) => {
   tabGroups.splice(id, 1);
-  chrome.storage.local.set({ tabGroups });
+  chrome.storage.sync.set({ tabGroups }, () => {
+    if (chrome.runtime.error) {
+      console.error(chrome.runtime.error);
+    }
+  });
 };
 
 const clearTabGroups = () => new Promise((resolve) => {
-  chrome.storage.local.clear(() => resolve());
+  chrome.storage.sync.clear(() => {
+    if (chrome.runtime.error) {
+      console.error(chrome.runtime.error);
+    }
+    resolve();
+  });
 });
 
 const updateAndBindTabGroupList = () => {
