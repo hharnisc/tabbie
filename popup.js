@@ -108,17 +108,30 @@ const updateAndBindTabGroupList = () => {
       displayTabGroupList(tabGroups);
       bindClickHandlers('tab-group-open', (e) => {
         const tabGroupId = e.target.dataset.tabGroupId;
-        createTabs(tabGroups[tabGroupId].tabs);
+        const { tabs } = tabGroups[tabGroupId];
+        createTabs(tabs);
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'TabGroup',
+          eventAction: 'open',
+          eventValue: tabs.length,
+        });
       });
       bindClickHandlers('tab-group-remove', (e) => {
         const tabGroupId = e.target.dataset.tabGroupId;
+        const { tabs } = tabGroups[tabGroupId];
         removeTabGroup(tabGroupId, tabGroups);
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'TabGroup',
+          eventAction: 'remove',
+          eventValue: tabs.length,
+        });
       });
       const tabGroupNameInput = document.getElementById('tab-group-new-name')
       tabGroupNameInput.onblur = () => tabGroupNameInput.classList.remove('invalid');
       bindClickHandlers('tab-group-save', (e) => {
         e.preventDefault();
-
         const newTabGroupName = tabGroupNameInput.value;
         if (newTabGroupName) {
           getSelectedTabs()
@@ -131,6 +144,12 @@ const updateAndBindTabGroupList = () => {
                 tabGroups
               );
               tabGroupNameInput.value = '';
+              ga('send', {
+                hitType: 'event',
+                eventCategory: 'TabGroup',
+                eventAction: 'save',
+                eventValue: urls.length,
+              });
             });
         } else {
           tabGroupNameInput.classList.add('invalid');
@@ -149,6 +168,12 @@ const updateAndBindTabGroupList = () => {
                 tabGroups
               );
               tabGroupNameInput.value = '';
+              ga('send', {
+                hitType: 'event',
+                eventCategory: 'TabGroup',
+                eventAction: 'saveAndClose',
+                eventValue: tabs.length,
+              });
               return closeSelectedTabs(tabs.map((tab) => tab.id));
             });
         } else {
