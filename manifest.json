@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Save Chrome Tabs",
+  "name": "Tabbie",
   "description": "This extension let's you save a group of chrome tabs for later",
   "version": "0.1",
 
