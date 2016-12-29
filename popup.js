@@ -117,7 +117,7 @@ const updateAndBindTabGroupList = () => {
 
         const newTabGroupName = tabGroupNameInput.value;
         if (newTabGroupName) {
-          getSelectedTab()
+          getSelectedTabs()
             .then((tabs) => tabs.map((tab) => tab.url))
             .then((urls) => {
               addTabGroup({
@@ -132,6 +132,11 @@ const updateAndBindTabGroupList = () => {
           tabGroupNameInput.classList.add('invalid');
         }
       });
+      bindClickHandlers('tab-group-save-close', (e) => {
+        getSelectedTabs()
+          .then((tabs) => tabs.map((tab) => tab.id))
+          .then((ids) => console.log(ids));
+      })
     });
 };
 
