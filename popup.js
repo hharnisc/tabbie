@@ -7,15 +7,6 @@ const getSelectedTabs = () => new Promise((resolve, reject) => {
   })
 });
 
-const getSelectedTabUrls = () => new Promise((resolve) => {
-  chrome.tabs.query({
-      highlighted: true,
-      lastFocusedWindow: true,
-  }, (tabs) => {
-      resolve(tabs.map((tab) => tab.url));
-  });
-});
-
 const createTabs = (urls) => new Promise((resolve) => {
   chrome.windows.create({
     url: urls,
