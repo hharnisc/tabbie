@@ -7,3 +7,7 @@ Friday evening comes along and you want to save your chrome tabs from the week s
 Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmekeknhjcbnigfbfbboffeo
 
 ![screenshot](store/screenshot.png)
+
+## Contributing
+
+Pull requests welcome!
