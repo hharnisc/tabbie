@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Tabbie",
   "short_name": "Tabbie",
-  "description": "Save Google Chrome tab groups for later",
+  "description": "The missing tab manager for Chrome",
   "version": "0.1",
 
   "browser_action": {

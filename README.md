@@ -1,6 +1,6 @@
 # Tabbie
 
-A chrome extension that let's you save a group of chrome tabs for later
+The missing tab manager for Chrome
 
 Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmekeknhjcbnigfbfbboffeo
 
