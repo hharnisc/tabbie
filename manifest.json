@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Tabbie",
-  "description": "This extension let's you save a group of chrome tabs for later",
+  "description": "Save Google Chrome tab groups for later",
   "version": "0.1",
 
   "browser_action": {
