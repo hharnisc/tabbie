@@ -7,6 +7,10 @@ const getSelectedTabs = () => new Promise((resolve, reject) => {
   })
 });
 
+const closeSelectedTabs = (tabIds) => new Promise((resolve, reject) => {
+  chrome.tabs.remove(tabIds, () => resolve());
+});
+
 const createTabs = (urls) => new Promise((resolve) => {
   chrome.windows.create({
     url: urls,
@@ -122,7 +126,7 @@ const updateAndBindTabGroupList = () => {
             .then((urls) => {
               addTabGroup({
                   name: newTabGroupName,
-                  tabs,
+                  tabs: urls,
                 },
                 tabGroups
               );
@@ -133,9 +137,23 @@ const updateAndBindTabGroupList = () => {
         }
       });
       bindClickHandlers('tab-group-save-close', (e) => {
-        getSelectedTabs()
-          .then((tabs) => tabs.map((tab) => tab.id))
-          .then((ids) => console.log(ids));
+        e.preventDefault();
+        const newTabGroupName = tabGroupNameInput.value;
+        if (newTabGroupName) {
+          getSelectedTabs()
+            .then((tabs) => {
+              addTabGroup({
+                  name: newTabGroupName,
+                  tabs: tabs.map((tab) => tab.url),
+                },
+                tabGroups
+              );
+              tabGroupNameInput.value = '';
+              return closeSelectedTabs(tabs.map((tab) => tab.id));
+            });
+        } else {
+          tabGroupNameInput.classList.add('invalid');
+        }
       })
     });
 };
