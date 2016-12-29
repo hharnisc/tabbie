@@ -1,3 +1,12 @@
+const getSelectedTabs = () => new Promise((resolve, reject) => {
+  chrome.tabs.query({
+    highlighted: true,
+    lastFocusedWindow: true,
+  }, (tabs) => {
+      resolve(tabs);
+  })
+});
+
 const getSelectedTabUrls = () => new Promise((resolve) => {
   chrome.tabs.query({
       highlighted: true,
@@ -117,15 +126,17 @@ const updateAndBindTabGroupList = () => {
 
         const newTabGroupName = tabGroupNameInput.value;
         if (newTabGroupName) {
-          getSelectedTabUrls().then((tabs) => {
-            addTabGroup({
-                name: newTabGroupName,
-                tabs,
-              },
-              tabGroups
-            );
-            tabGroupNameInput.value = '';
-          });
+          getSelectedTab()
+            .then((tabs) => tabs.map((tab) => tab.url))
+            .then((urls) => {
+              addTabGroup({
+                  name: newTabGroupName,
+                  tabs,
+                },
+                tabGroups
+              );
+              tabGroupNameInput.value = '';
+            });
         } else {
           tabGroupNameInput.classList.add('invalid');
         }
