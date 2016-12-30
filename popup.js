@@ -1,10 +1,9 @@
 const getSelectedTabs = () => new Promise((resolve, reject) => {
   chrome.tabs.query({
-    highlighted: true,
-    lastFocusedWindow: true,
+    currentWindow: true,
   }, (tabs) => {
       resolve(tabs);
-  })
+  });
 });
 
 const closeSelectedTabs = (tabIds) => new Promise((resolve, reject) => {
