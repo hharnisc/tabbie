@@ -4,10 +4,10 @@ const getSelectedTabs = () => new Promise((resolve, reject) => {
     lastFocusedWindow: true,
   }, (tabs) => {
       resolve(tabs);
-  })
+  });
 });
 
-const closeSelectedTabs = (tabIds) => new Promise((resolve, reject) => {
+const closeTabsWithIds = (tabIds) => new Promise((resolve, reject) => {
   chrome.tabs.remove(tabIds, () => resolve());
 });
 
@@ -115,6 +115,60 @@ const clearTabGroups = () => new Promise((resolve) => {
   });
 });
 
+const handleSaveClick = (e, tabGroups) => {
+  e.preventDefault();
+  const tabGroupNameInput = document.getElementById('tab-group-new-name');
+  const newTabGroupName = tabGroupNameInput.value;
+  if (newTabGroupName) {
+    getSelectedTabs()
+      .then((tabs) => tabs.map((tab) => tab.url))
+      .then((urls) => {
+        addTabGroup({
+            name: newTabGroupName,
+            tabs: urls,
+          },
+          tabGroups
+        );
+        tabGroupNameInput.value = '';
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'TabGroup',
+          eventAction: 'save',
+          eventValue: urls.length,
+        });
+      });
+  } else {
+    tabGroupNameInput.classList.add('invalid');
+  }
+};
+
+const handleSaveAndCloseClick = (e, tabGroups) => {
+  e.preventDefault();
+  const tabGroupNameInput = document.getElementById('tab-group-new-name');
+  const newTabGroupName = tabGroupNameInput.value;
+  if (newTabGroupName) {
+    getSelectedTabs()
+      .then((tabs) => {
+        addTabGroup({
+            name: newTabGroupName,
+            tabs: tabs.map((tab) => tab.url),
+          },
+          tabGroups
+        );
+        tabGroupNameInput.value = '';
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'TabGroup',
+          eventAction: 'saveAndClose',
+          eventValue: tabs.length,
+        });
+        closeTabsWithIds(tabs.map((tab) => tab.id));
+      });
+  } else {
+    tabGroupNameInput.classList.add('invalid');
+  }
+};
+
 const updateAndBindTabGroupList = () => {
   getTabGroups()
     .then((tabGroups) => {
@@ -143,56 +197,8 @@ const updateAndBindTabGroupList = () => {
       });
       const tabGroupNameInput = document.getElementById('tab-group-new-name')
       tabGroupNameInput.onblur = () => tabGroupNameInput.classList.remove('invalid');
-      bindClickHandlers('tab-group-save', (e) => {
-        e.preventDefault();
-        const newTabGroupName = tabGroupNameInput.value;
-        if (newTabGroupName) {
-          getSelectedTabs()
-            .then((tabs) => tabs.map((tab) => tab.url))
-            .then((urls) => {
-              addTabGroup({
-                  name: newTabGroupName,
-                  tabs: urls,
-                },
-                tabGroups
-              );
-              tabGroupNameInput.value = '';
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'TabGroup',
-                eventAction: 'save',
-                eventValue: urls.length,
-              });
-            });
-        } else {
-          tabGroupNameInput.classList.add('invalid');
-        }
-      });
-      bindClickHandlers('tab-group-save-close', (e) => {
-        e.preventDefault();
-        const newTabGroupName = tabGroupNameInput.value;
-        if (newTabGroupName) {
-          getSelectedTabs()
-            .then((tabs) => {
-              addTabGroup({
-                  name: newTabGroupName,
-                  tabs: tabs.map((tab) => tab.url),
-                },
-                tabGroups
-              );
-              tabGroupNameInput.value = '';
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'TabGroup',
-                eventAction: 'saveAndClose',
-                eventValue: tabs.length,
-              });
-              return closeSelectedTabs(tabs.map((tab) => tab.id));
-            });
-        } else {
-          tabGroupNameInput.classList.add('invalid');
-        }
-      })
+      bindClickHandlers('tab-group-save', (e) => handleSaveClick(e, tabGroups));
+      bindClickHandlers('tab-group-save-close', (e) => handleSaveAndCloseClick(e, tabGroups));
     });
 };
 
