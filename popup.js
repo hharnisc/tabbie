@@ -155,10 +155,15 @@ const resetTabGroupName = () => {
   tabGroupNameInput.value = '';
 };
 
-const handleSaveClick = (e, tabGroups) => {
+const handleSaveClick = (e, tabGroups, saveSelected) => {
   e.preventDefault();
   validateTabGroupName()
-    .then(() => getSelectedTabs())
+    .then(() => {
+      if (saveSelected) {
+        return getSelectedTabs();
+      }
+      return getAllTabs();
+     })
     .then((tabs) => tabs.map((tab) => tab.url))
     .then((urls) => {
       addTabGroup({
@@ -184,10 +189,15 @@ const handleSaveClick = (e, tabGroups) => {
     });
 };
 
-const handleSaveAndCloseClick = (e, tabGroups) => {
+const handleSaveAndCloseClick = (e, tabGroups, saveSelected) => {
   e.preventDefault();
   validateTabGroupName()
-    .then(() => getSelectedTabs())
+    .then(() => {
+      if (saveSelected) {
+        return getSelectedTabs();
+      }
+      return getAllTabs();
+     })
     .then((tabs) => {
       addTabGroup({
           name: getTabGroupName(),
@@ -256,11 +266,11 @@ const bindTabGroupList = (tabGroups) => {
   });
 };
 
-const bindSaveHandlers = (tabGroups) => {
+const bindSaveHandlers = (tabGroups, saveSelected) => {
   const tabGroupNameInput = document.getElementById('tab-group-new-name')
   tabGroupNameInput.onblur = () => tabGroupNameInput.classList.remove('invalid');
-  bindClickHandlers('tab-group-save', (e) => handleSaveClick(e, tabGroups));
-  bindClickHandlers('tab-group-save-close', (e) => handleSaveAndCloseClick(e, tabGroups));
+  bindClickHandlers('tab-group-save', (e) => handleSaveClick(e, tabGroups, saveSelected));
+  bindClickHandlers('tab-group-save-close', (e) => handleSaveAndCloseClick(e, tabGroups, saveSelected));
   bindClickHandlers('tab-group-save-cb', (e) => handleSaveSelectCallbackClick(e));
 };
 
@@ -271,7 +281,7 @@ const updateAndBindUI = () => {
       updateSaveButtonText(saveSelected);
       updateSaveOnlySelectedCheckbox(saveSelected);
       bindTabGroupList(tabGroups);
-      bindSaveHandlers(tabGroups);
+      bindSaveHandlers(tabGroups, saveSelected);
     });
 };
 
