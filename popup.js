@@ -201,6 +201,13 @@ const updateSaveOnlySelectedCheckbox = (saveSelected) => {
   saveOnlySelectedCb.checked = saveSelected;
 };
 
+const updateSaveButtonText = (saveSelected) => {
+  document.getElementsByClassName('tab-group-save')[0]
+    .innerHTML = !saveSelected ? 'Save All Tabs' : 'Save Selected Tabs';
+  document.getElementsByClassName('tab-group-save-close')[0]
+    .innerHTML = !saveSelected ? 'Save & Close All Tabs' : 'Save & Close Selected Tabs';
+};
+
 const bindTabGroupList = (tabGroups) => {
   bindClickHandlers('tab-group-open', (e) => {
     const tabGroupId = e.target.dataset.tabGroupId;
@@ -238,6 +245,7 @@ const updateAndBindUI = () => {
   Promise.all([getTabGroups(), getSaveSelectedState()])
     .then(([tabGroups, saveSelected]) => {
       displayTabGroupList(tabGroups);
+      updateSaveButtonText(saveSelected);
       updateSaveOnlySelectedCheckbox(saveSelected);
       bindTabGroupList(tabGroups);
       bindSaveHandlers(tabGroups);
