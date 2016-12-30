@@ -201,43 +201,50 @@ const updateSaveOnlySelectedCheckbox = (saveSelected) => {
   saveOnlySelectedCb.checked = saveSelected;
 };
 
-const updateAndBindTabGroupList = () => {
-  getTabGroups()
-    .then((tabGroups) => {
+const bindTabGroupList = (tabGroups) => {
+  bindClickHandlers('tab-group-open', (e) => {
+    const tabGroupId = e.target.dataset.tabGroupId;
+    const { tabs } = tabGroups[tabGroupId];
+    createTabs(tabs);
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'TabGroup',
+      eventAction: 'open',
+      eventValue: tabs.length,
+    });
+  });
+  bindClickHandlers('tab-group-remove', (e) => {
+    const tabGroupId = e.target.dataset.tabGroupId;
+    const { tabs } = tabGroups[tabGroupId];
+    removeTabGroup(tabGroupId, tabGroups);
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'TabGroup',
+      eventAction: 'remove',
+      eventValue: tabs.length,
+    });
+  });
+};
+
+const bindSaveHandlers = (tabGroups) => {
+  const tabGroupNameInput = document.getElementById('tab-group-new-name')
+  tabGroupNameInput.onblur = () => tabGroupNameInput.classList.remove('invalid');
+  bindClickHandlers('tab-group-save', (e) => handleSaveClick(e, tabGroups));
+  bindClickHandlers('tab-group-save-close', (e) => handleSaveAndCloseClick(e, tabGroups));
+  bindClickHandlers('tab-group-save-cb', (e) => handleSaveSelectCallbackClick(e));
+};
+
+const updateAndBindUI = () => {
+  Promise.all([getTabGroups(), getSaveSelectedState()])
+    .then(([tabGroups, saveSelected]) => {
       displayTabGroupList(tabGroups);
-      bindClickHandlers('tab-group-open', (e) => {
-        const tabGroupId = e.target.dataset.tabGroupId;
-        const { tabs } = tabGroups[tabGroupId];
-        createTabs(tabs);
-        ga('send', {
-          hitType: 'event',
-          eventCategory: 'TabGroup',
-          eventAction: 'open',
-          eventValue: tabs.length,
-        });
-      });
-      bindClickHandlers('tab-group-remove', (e) => {
-        const tabGroupId = e.target.dataset.tabGroupId;
-        const { tabs } = tabGroups[tabGroupId];
-        removeTabGroup(tabGroupId, tabGroups);
-        ga('send', {
-          hitType: 'event',
-          eventCategory: 'TabGroup',
-          eventAction: 'remove',
-          eventValue: tabs.length,
-        });
-      });
-      const tabGroupNameInput = document.getElementById('tab-group-new-name')
-      tabGroupNameInput.onblur = () => tabGroupNameInput.classList.remove('invalid');
-      bindClickHandlers('tab-group-save', (e) => handleSaveClick(e, tabGroups));
-      bindClickHandlers('tab-group-save-close', (e) => handleSaveAndCloseClick(e, tabGroups));
-      bindClickHandlers('tab-group-save-cb', (e) => handleSaveSelectCallbackClick(e));
-    })
-    .then(() => getSaveSelectedState())
-    .then((saveSelected) => updateSaveOnlySelectedCheckbox(saveSelected));
+      updateSaveOnlySelectedCheckbox(saveSelected);
+      bindTabGroupList(tabGroups);
+      bindSaveHandlers(tabGroups);
+    });
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  updateAndBindTabGroupList();
-  chrome.storage.onChanged.addListener(() => updateAndBindTabGroupList());
+  updateAndBindUI();
+  chrome.storage.onChanged.addListener(() => updateAndBindUI());
 });
