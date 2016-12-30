@@ -157,7 +157,6 @@ const resetTabGroupName = () => {
 
 const handleSaveClick = (e, tabGroups) => {
   e.preventDefault();
-  let newTabGroupName;
   validateTabGroupName()
     .then(() => getSelectedTabs())
     .then((tabs) => tabs.map((tab) => tab.url))
@@ -187,7 +186,6 @@ const handleSaveClick = (e, tabGroups) => {
 
 const handleSaveAndCloseClick = (e, tabGroups) => {
   e.preventDefault();
-  let newTabGroupName;
   validateTabGroupName()
     .then(() => getSelectedTabs())
     .then((tabs) => {
