@@ -7,6 +7,14 @@ const getSelectedTabs = () => new Promise((resolve, reject) => {
   });
 });
 
+const getAllTabs = () => new Promise((resolve, reject) => {
+  chrome.tabs.query({
+    lastFocusedWindow: true,
+  }, (tabs) => {
+      resolve(tabs);
+  });
+});
+
 const closeTabsWithIds = (tabIds) => new Promise((resolve, reject) => {
   chrome.tabs.remove(tabIds, () => resolve());
 });
@@ -85,7 +93,7 @@ const bindClickHandlers = (elementClass, clickhandler) => {
 };
 
 const getTabGroups = () => new Promise((resolve) => {
-  chrome.storage.sync.get(null, (tabGroups) => resolve(tabGroups.tabGroups || []));
+  chrome.storage.sync.get(null, (state) => resolve(state.tabGroups || []));
 });
 
 const addTabGroup = (newTabGroup, tabGroups) => {
@@ -113,6 +121,19 @@ const clearTabGroups = () => new Promise((resolve) => {
     }
     resolve();
   });
+});
+
+const setSaveSelectedState = (saveSelected) => new Promise((resolve) => {
+  chrome.storage.sync.set({ saveSelected }, () => {
+    if (chrome.runtime.error) {
+      console.error(chrome.runtime.error);
+    }
+    resolve();
+  });
+});
+
+const getSaveSelectedState = () => new Promise((resolve) => {
+  chrome.storage.sync.get(null, (state) => resolve(state.saveSelected || false));
 });
 
 const handleSaveClick = (e, tabGroups) => {
@@ -169,6 +190,17 @@ const handleSaveAndCloseClick = (e, tabGroups) => {
   }
 };
 
+const handleSaveSelectCallbackClick = (e) => {
+  e.preventDefault();
+  const saveOnlySelectedCb = document.getElementById('save-only-selected');
+  setSaveSelectedState(saveOnlySelectedCb.checked);
+};
+
+const updateSaveOnlySelectedCheckbox = (saveSelected) => {
+  const saveOnlySelectedCb = document.getElementById('save-only-selected');
+  saveOnlySelectedCb.checked = saveSelected;
+};
+
 const updateAndBindTabGroupList = () => {
   getTabGroups()
     .then((tabGroups) => {
@@ -199,7 +231,10 @@ const updateAndBindTabGroupList = () => {
       tabGroupNameInput.onblur = () => tabGroupNameInput.classList.remove('invalid');
       bindClickHandlers('tab-group-save', (e) => handleSaveClick(e, tabGroups));
       bindClickHandlers('tab-group-save-close', (e) => handleSaveAndCloseClick(e, tabGroups));
-    });
+      bindClickHandlers('tab-group-save-cb', (e) => handleSaveSelectCallbackClick(e));
+    })
+    .then(() => getSaveSelectedState())
+    .then((saveSelected) => updateSaveOnlySelectedCheckbox(saveSelected));
 };
 
 document.addEventListener('DOMContentLoaded', () => {
