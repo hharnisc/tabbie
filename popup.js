@@ -136,9 +136,13 @@ const getSaveSelectedState = () => new Promise((resolve) => {
   chrome.storage.sync.get(null, (state) => resolve(state.saveSelected || false));
 });
 
-const validateTabGroupName = () => new Promise((resolve, reject) => {
+const getTabGroupName = () => {
   const tabGroupNameInput = document.getElementById('tab-group-new-name');
-  const newTabGroupName = tabGroupNameInput.value;
+  return tabGroupNameInput.value;
+};
+
+const validateTabGroupName = () => new Promise((resolve, reject) => {
+  const newTabGroupName = getTabGroupName();
   if (newTabGroupName) {
     resolve(newTabGroupName);
   } else {
@@ -155,14 +159,11 @@ const handleSaveClick = (e, tabGroups) => {
   e.preventDefault();
   let newTabGroupName;
   validateTabGroupName()
-    .then((validTabGroupName) => {
-      newTabGroupName = validTabGroupName;
-    })
     .then(() => getSelectedTabs())
     .then((tabs) => tabs.map((tab) => tab.url))
     .then((urls) => {
       addTabGroup({
-          name: newTabGroupName,
+          name: getTabGroupName(),
           tabs: urls,
         },
         tabGroups
@@ -188,13 +189,10 @@ const handleSaveAndCloseClick = (e, tabGroups) => {
   e.preventDefault();
   let newTabGroupName;
   validateTabGroupName()
-    .then((validTabGroupName) => {
-      newTabGroupName = validTabGroupName;
-    })
     .then(() => getSelectedTabs())
     .then((tabs) => {
       addTabGroup({
-          name: newTabGroupName,
+          name: getTabGroupName(),
           tabs: tabs.map((tab) => tab.url),
         },
         tabGroups
