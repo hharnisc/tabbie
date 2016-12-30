@@ -136,58 +136,85 @@ const getSaveSelectedState = () => new Promise((resolve) => {
   chrome.storage.sync.get(null, (state) => resolve(state.saveSelected || false));
 });
 
-const handleSaveClick = (e, tabGroups) => {
-  e.preventDefault();
+const validateTabGroupName = () => new Promise((resolve, reject) => {
   const tabGroupNameInput = document.getElementById('tab-group-new-name');
   const newTabGroupName = tabGroupNameInput.value;
   if (newTabGroupName) {
-    getSelectedTabs()
-      .then((tabs) => tabs.map((tab) => tab.url))
-      .then((urls) => {
-        addTabGroup({
-            name: newTabGroupName,
-            tabs: urls,
-          },
-          tabGroups
-        );
-        tabGroupNameInput.value = '';
-        ga('send', {
-          hitType: 'event',
-          eventCategory: 'TabGroup',
-          eventAction: 'save',
-          eventValue: urls.length,
-        });
-      });
+    resolve(newTabGroupName);
   } else {
-    tabGroupNameInput.classList.add('invalid');
+    reject(new Error('Tab Name Is Invalid'));
   }
+});
+
+const resetTabGroupName = () => {
+  const tabGroupNameInput = document.getElementById('tab-group-new-name');
+  tabGroupNameInput.value = '';
+};
+
+const handleSaveClick = (e, tabGroups) => {
+  e.preventDefault();
+  let newTabGroupName;
+  validateTabGroupName()
+    .then((validTabGroupName) => {
+      newTabGroupName = validTabGroupName;
+    })
+    .then(() => getSelectedTabs())
+    .then((tabs) => tabs.map((tab) => tab.url))
+    .then((urls) => {
+      addTabGroup({
+          name: newTabGroupName,
+          tabs: urls,
+        },
+        tabGroups
+      );
+      resetTabGroupName();
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'TabGroup',
+        eventAction: 'save',
+        eventValue: urls.length,
+      });
+    })
+    .catch((err) => {
+      if (err.message === 'Tab Name Is Invalid') {
+        tabGroupNameInput.classList.add('invalid');
+      } else {
+        console.error(err);
+      }
+    });
 };
 
 const handleSaveAndCloseClick = (e, tabGroups) => {
   e.preventDefault();
-  const tabGroupNameInput = document.getElementById('tab-group-new-name');
-  const newTabGroupName = tabGroupNameInput.value;
-  if (newTabGroupName) {
-    getSelectedTabs()
-      .then((tabs) => {
-        addTabGroup({
-            name: newTabGroupName,
-            tabs: tabs.map((tab) => tab.url),
-          },
-          tabGroups
-        );
-        tabGroupNameInput.value = '';
-        ga('send', {
-          hitType: 'event',
-          eventCategory: 'TabGroup',
-          eventAction: 'saveAndClose',
-          eventValue: tabs.length,
-        });
-        closeTabsWithIds(tabs.map((tab) => tab.id));
+  let newTabGroupName;
+  validateTabGroupName()
+    .then((validTabGroupName) => {
+      newTabGroupName = validTabGroupName;
+    })
+    .then(() => getSelectedTabs())
+    .then((tabs) => {
+      addTabGroup({
+          name: newTabGroupName,
+          tabs: tabs.map((tab) => tab.url),
+        },
+        tabGroups
+      );
+      resetTabGroupName();
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'TabGroup',
+        eventAction: 'saveAndClose',
+        eventValue: tabs.length,
       });
-  } else {
-    tabGroupNameInput.classList.add('invalid');
-  }
+      closeTabsWithIds(tabs.map((tab) => tab.id));
+    })
+    .catch((err) => {
+      if (err.message === 'Tab Name Is Invalid') {
+        tabGroupNameInput.classList.add('invalid');
+      } else {
+        console.error(err);
+      }
+    });
 };
 
 const handleSaveSelectCallbackClick = (e) => {
