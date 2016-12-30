@@ -10,7 +10,7 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 ## Release Notes
 
-**0.0.3**
+**0.3.0**
 
 - Default to save all chrome tabs in the current window
 - Toggle checkbox to save selected tabs
