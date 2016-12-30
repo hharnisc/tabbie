@@ -10,6 +10,10 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 ## Release Notes
 
+**0.3.1**
+
+- Form items get focus before tab groups (fixes #7)
+
 **0.3.0**
 
 - Default to save all chrome tabs in the current window
