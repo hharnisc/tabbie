@@ -141,6 +141,11 @@ const getTabGroupName = () => {
   return tabGroupNameInput.value;
 };
 
+const setTabGroupNameInvalid = () => {
+  const tabGroupNameInput = document.getElementById('tab-group-new-name');
+  tabGroupNameInput.classList.add('invalid');
+};
+
 const validateTabGroupName = () => new Promise((resolve, reject) => {
   const newTabGroupName = getTabGroupName();
   if (newTabGroupName) {
@@ -182,7 +187,7 @@ const handleSaveClick = (e, tabGroups, saveSelected) => {
     })
     .catch((err) => {
       if (err.message === 'Tab Name Is Invalid') {
-        tabGroupNameInput.classList.add('invalid');
+        setTabGroupNameInvalid();
       } else {
         console.error(err);
       }
@@ -216,7 +221,7 @@ const handleSaveAndCloseClick = (e, tabGroups, saveSelected) => {
     })
     .catch((err) => {
       if (err.message === 'Tab Name Is Invalid') {
-        tabGroupNameInput.classList.add('invalid');
+        setTabGroupNameInvalid();
       } else {
         console.error(err);
       }
