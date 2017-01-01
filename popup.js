@@ -19,11 +19,25 @@ const closeTabsWithIds = (tabIds) => new Promise((resolve, reject) => {
   chrome.tabs.remove(tabIds, () => resolve());
 });
 
-const createTabs = (urls) => new Promise((resolve) => {
+const createWindow = (urls) => new Promise((resolve) => {
   chrome.windows.create({
     url: urls,
   }, (window) => resolve(window));
 });
+
+const createTabs = (tabs) =>
+  createWindow(tabs.map((tab) => tab.url ? tab.url : tab))
+    .then(window => tabs.map((tab, i) => {
+      return new Promise((resolve) => {
+        if (tab.pinned) {
+          chrome.tabs.update(window.tabs[i].id, {pinned: true}, () => resolve());
+        } else {
+          resolve();
+        }
+      });
+    }))
+    .then(tabPromises => Promise.all(tabPromises));
+
 
 const createOpenButton = (id) => {
   const openButton = document.createElement('button');
@@ -169,11 +183,14 @@ const handleSaveClick = (e, tabGroups, saveSelected) => {
       }
       return getAllTabs();
      })
-    .then((tabs) => tabs.map((tab) => tab.url))
-    .then((urls) => {
+    .then((tabs) => tabs.map((tab) => ({
+      url: tab.url,
+      pinned: tab.pinned,
+    })))
+    .then((tabs) => {
       addTabGroup({
           name: getTabGroupName(),
-          tabs: urls,
+          tabs,
         },
         tabGroups
       );
@@ -182,7 +199,7 @@ const handleSaveClick = (e, tabGroups, saveSelected) => {
         hitType: 'event',
         eventCategory: 'TabGroup',
         eventAction: 'save',
-        eventValue: urls.length,
+        eventValue: tabs.length,
       });
     })
     .catch((err) => {
@@ -206,7 +223,10 @@ const handleSaveAndCloseClick = (e, tabGroups, saveSelected) => {
     .then((tabs) => {
       addTabGroup({
           name: getTabGroupName(),
-          tabs: tabs.map((tab) => tab.url),
+          tabs: tabs.map((tab) => ({
+            url: tab.url,
+            pinned: tab.pinned,
+          })),
         },
         tabGroups
       );
