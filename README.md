@@ -14,6 +14,10 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 ## Release Notes
 
+**0.3.3**
+
+- Preserve pinned tabs (fixes #13)
+
 **0.3.2**
 
 - Show invalid state on input when no value is set (fixes #8)
