@@ -25,6 +25,40 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 - a11y fixes (Thanks [Rahul](https://github.com/Primigenus)!)
 - Display extension icon in Chrome extensions manager
 
+## Google Analytics
+
+Google Analytics is connected to make informed decisions about which features should be default, which features to remove and to prioritize which languages to translate. The goal here is to be 100% transparent about what is being collected and to not personally identifiable information. It's the patterns that emerge from the group that are in important, not so much the individual.
+
+The following events are tracked in Google analytics:
+
+**save**
+
+Someone clicks on the "Save All Tabs" or "Save Selected Tabs" button.
+
+value: number of tabs in the group
+
+**saveAndClose**
+
+Someone clicks on the "Save & Close All Tabs" or "Save & Close Selected Tabs" button.
+
+value: number of tabs in the group
+
+**remove**
+
+Someone removes a tab group.
+
+value: number of tabs in the group
+
+**open**
+
+Someone opens a tab group.
+
+value: number of tabs in the group
+
+**pageview**
+
+Someone opens the Tabbie chrome extension
+
 ## Contributing
 
 Pull requests welcome!
