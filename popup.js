@@ -57,12 +57,13 @@ const createRemoveButton = (id) => {
   return remove;
 };
 
-const createTabListItem = (name, id) => {
+const createTabListItem = (tabWindow, id) => {
   const listItem = document.createElement('li');
   const listItemContentElement = document.createElement('div');
-  const listItemContent = document.createTextNode(name);
+  const listItemContent = document.createTextNode(tabWindow.name);
   listItemContentElement.setAttribute('class', 'tab-group-list-item-content');
   listItem.setAttribute('class', 'tab-group-list-item');
+  listItem.setAttribute('title', tabWindow.tabs.length+' Tab'+ ((tabWindow.tabs.length!==1)?'s':'') + ' \n-------------\n' +tabWindow.tabs.join('\n\n'));
   listItemContentElement.appendChild(listItemContent);
   listItem.appendChild(listItemContentElement);
   listItem.appendChild(createOpenButton(id));
@@ -72,8 +73,8 @@ const createTabListItem = (name, id) => {
 
 const createTabGroupList = (tabGroupData) => {
   const windowList = document.createElement('ul');
-  tabGroupData.forEach((window, index) => {
-    windowList.appendChild(createTabListItem(window.name, index));
+  tabGroupData.forEach((tabWindow, index) => {
+    windowList.appendChild(createTabListItem(tabWindow, index));
   });
   return windowList;
 };
