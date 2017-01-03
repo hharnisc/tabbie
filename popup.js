@@ -63,6 +63,7 @@ const createTabListItem = (name, id) => {
   const listItemContent = document.createTextNode(name);
   listItemContentElement.setAttribute('class', 'tab-group-list-item-content');
   listItem.setAttribute('class', 'tab-group-list-item');
+  listItemContentElement.setAttribute('tabindex', '0');
   listItemContentElement.appendChild(listItemContent);
   listItem.appendChild(listItemContentElement);
   listItem.appendChild(createOpenButton(id));
@@ -71,11 +72,19 @@ const createTabListItem = (name, id) => {
 }
 
 const createTabGroupList = (tabGroupData) => {
-  const windowList = document.createElement('ul');
+  const tabGroupList = document.createElement('ul');
+  tabGroupList.setAttribute('class', 'tab-group-list');
+  tabGroupList.setAttribute('aria-label', 'tab groups');
+  tabGroupList.setAttribute('tabindex', '0');
   tabGroupData.forEach((window, index) => {
-    windowList.appendChild(createTabListItem(window.name, index));
+    tabGroupList.appendChild(createTabListItem(window.name, index));
   });
-  return windowList;
+  return tabGroupList;
+};
+
+const focusTabGroupList = () => {
+  const tabGroupList = document.getElementsByClassName('tab-group-list');
+  tabGroupList.focus();
 };
 
 const createEmptyTabGroupList = () => {
@@ -96,6 +105,7 @@ const displayTabGroupList = (tabGroupData) => {
   const listElement = document.getElementsByClassName('list')[0];
   listElement.innerHTML = '';
   listElement.appendChild(tabGroupListContent);
+  focusTabGroupList();
 };
 
 const bindClickHandlers = (elementClass, clickhandler) => {
