@@ -3,6 +3,11 @@
   <head>
     <title>Tabbie</title>
     <style>
+      :root {
+        --red: #ea4335;
+        --blue: #4285f4;
+      }
+
       ul {
         list-style-type: none;
         margin: 0;
@@ -65,11 +70,11 @@
       }
 
       input.invalid {
-        border: 1px solid #ea4335;
+        border: 1px solid var(--red);
       }
 
       input:focus {
-        border: 1px solid #4285f4;
+        border: 1px solid var(--blue);
       }
 
       .tab-group-save,
@@ -91,23 +96,23 @@
         background: #fff;
         border-radius: 3px;
         border: none;
-        color: #4285f4;
+        color: var(--blue);
         cursor: pointer;
         padding: 5px;
       }
 
       .primary,
       button:hover {
-        background: #4285f4;
+        background: var(--blue);
         color: #fff;
       }
 
       button.danger {
-        color: #ea4335;
+        color: var(--red);
       }
 
       button.danger:hover {
-        background: #ea4335;
+        background: var(--red);
         color: #fff;
       }
 
