@@ -1,94 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+
     <title>Tabbie</title>
-    <script src="analytics.js"></script>
-    <script src="popup.js"></script>
+
     <style>
+      :root {
+        --red: #ea4335;
+        --blue: #4285f4;
+      }
+
       ul {
         list-style-type: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
       }
+
       h2 {
         margin: 10px 0;
       }
+
       .list {
-        padding-top: 10px;
         flex-grow: 1;
         max-height: 261px;
         overflow-y: auto;
+        padding-top: 10px;
       }
-      .tab-group-list-item, .tabs-body, .form-controls {
+
+      .tab-group-list-item,
+      .tabs-body,
+      .form-controls {
         display: flex;
       }
+
       .tab-group-list-item {
         align-items: center;
-        padding: 5px;
         font-size: 13px;
+        padding: 5px;
       }
+
       .tab-group-list--empty {
         font-size: 13px;
       }
-      .tabs-body, .form-controls {
+
+      .tabs-body,
+      .form-controls {
         flex-direction: column;
       }
+
       .tabs-body {
-        width: 300px;
         height: 400px;
         padding: 0 10px 10px 10px;
+        width: 300px;
       }
+
       .tab-group-list-item-content {
         flex-grow: 1;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
+
       input[type=text] {
         -webkit-appearance: none;
         border: 1px solid #808080;
+        box-sizing: border-box;
+        font-size: 12px;
         margin: 0;
-        width: 100%;
         padding: 8px;
-        font-size: 12px;
-        box-sizing: border-box
+        width: 100%;
       }
+
       input.invalid {
-        border: 1px solid #EA4335;
+        border: 1px solid var(--red);
       }
+
       input:focus {
-        border: 1px solid #4285F4;
+        border: 1px solid var(--blue);
       }
-      .tab-group-save, .tab-group-save-close {
-        padding: 10px;
+
+      .tab-group-save,
+      .tab-group-save-close {
         font-size: 12px;
+        padding: 10px;
       }
+
       .tab-group-save-close {
         margin-top: 10px;
       }
-      .tab-group-save, .tab-group-save-cb {
+
+      .tab-group-save,
+      .tab-group-save-cb {
         margin-top: 20px;
       }
+
       button {
-        border: 1px solid #4285F4;
-        border: none;
-        color: #4285F4;
-        background: white;
+        background: #fff;
         border-radius: 3px;
-        padding: 5px;
+        border: none;
+        color: var(--blue);
         cursor: pointer;
+        padding: 5px;
       }
-      .primary, button:hover {
-        background: #4285F4;
-        color: white;
+
+      .primary,
+      button:hover {
+        background: var(--blue);
+        color: #fff;
       }
-      button.danger{
-        color: #EA4335;
+
+      button.danger {
+        color: var(--red);
       }
+
       button.danger:hover {
-        background: #EA4335;
-        color: white;
+        background: var(--red);
+        color: #fff;
       }
+
       .list button {
         margin-left: 10px;
       }
@@ -100,12 +130,15 @@
       <div class="list"></div>
       <div class="controls">
         <form class="form-controls">
-          <input type="text" id="tab-group-new-name" value="" placeholder="New Tab Group Name" tabindex=1 required>
-          <button class="tab-group-save primary" tabindex=2 >Save All Tabs</button>
-          <button class="tab-group-save-close" tabindex=3 >Save &amp; Close All Tabs</button>
-          <label><input type="checkbox" id="save-only-selected" class="tab-group-save-cb" tabindex=4> Only Save Selected Tabs</label>
+          <input type="text" id="tab-group-new-name" placeholder="New Tab Group Name" tabindex="1" required>
+          <button class="tab-group-save primary" tabindex="2">Save All Tabs</button>
+          <button class="tab-group-save-close" tabindex="3">Save &amp; Close All Tabs</button>
+          <label><input type="checkbox" id="save-only-selected" class="tab-group-save-cb" tabindex="4"> Only Save Selected Tabs</label>
         </form>
       </div>
     </div>
+
+    <script src="analytics.js"></script>
+    <script src="popup.js"></script>
   </body>
 </html>

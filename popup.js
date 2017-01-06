@@ -3,7 +3,7 @@ const getSelectedTabs = () => new Promise((resolve, reject) => {
     highlighted: true,
     lastFocusedWindow: true,
   }, (tabs) => {
-      resolve(tabs);
+    resolve(tabs);
   });
 });
 
@@ -11,7 +11,7 @@ const getAllTabs = () => new Promise((resolve, reject) => {
   chrome.tabs.query({
     lastFocusedWindow: true,
   }, (tabs) => {
-      resolve(tabs);
+    resolve(tabs);
   });
 });
 
@@ -20,9 +20,7 @@ const closeTabsWithIds = (tabIds) => new Promise((resolve, reject) => {
 });
 
 const createWindow = (urls) => new Promise((resolve) => {
-  chrome.windows.create({
-    url: urls,
-  }, (window) => resolve(window));
+  chrome.windows.create({ url: urls }, (window) => resolve(window));
 });
 
 const createTabs = (tabs) =>
@@ -30,7 +28,7 @@ const createTabs = (tabs) =>
     .then(window => tabs.map((tab, i) => {
       return new Promise((resolve) => {
         if (tab.pinned) {
-          chrome.tabs.update(window.tabs[i].id, {pinned: true}, () => resolve());
+          chrome.tabs.update(window.tabs[i].id, { pinned: true }, () => resolve());
         } else {
           resolve();
         }
@@ -72,8 +70,8 @@ const createTabListItem = (name, id) => {
 
 const createTabGroupList = (tabGroupData) => {
   const windowList = document.createElement('ul');
-  tabGroupData.forEach((window, index) => {
-    windowList.appendChild(createTabListItem(window.name, index));
+  tabGroupData.forEach((window, i) => {
+    windowList.appendChild(createTabListItem(window.name, i));
   });
   return windowList;
 };
@@ -100,7 +98,7 @@ const displayTabGroupList = (tabGroupData) => {
 
 const bindClickHandlers = (elementClass, clickhandler) => {
   const elements = document.getElementsByClassName(elementClass);
-  for(let i = 0; i < elements.length; i++) {
+  for (let i = 0; i < elements.length; i++) {
     var element = elements[i];
     element.onclick = clickhandler;
   }
@@ -182,7 +180,7 @@ const handleSaveClick = (e, tabGroups, saveSelected) => {
         return getSelectedTabs();
       }
       return getAllTabs();
-     })
+    })
     .then((tabs) => tabs.map((tab) => ({
       url: tab.url,
       pinned: tab.pinned,
@@ -219,7 +217,7 @@ const handleSaveAndCloseClick = (e, tabGroups, saveSelected) => {
         return getSelectedTabs();
       }
       return getAllTabs();
-     })
+    })
     .then((tabs) => {
       addTabGroup({
           name: getTabGroupName(),
