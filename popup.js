@@ -40,8 +40,8 @@ const createTabs = (tabs) =>
 const createOpenButton = (id) => {
   const openButton = document.createElement('button');
   const buttonText = document.createTextNode('open');
-  openButton.setAttribute('class', 'tab-group-open');
-  openButton.setAttribute('data-tab-group-id', id);
+  openButton.classList.add('tab-group-open');
+  openButton.dataset.tabGroupId = id;
   openButton.appendChild(buttonText);
   return openButton;
 };
@@ -49,8 +49,8 @@ const createOpenButton = (id) => {
 const createRemoveButton = (id) => {
   const remove = document.createElement('button');
   const buttonText = document.createTextNode('remove');
-  remove.setAttribute('class', 'tab-group-remove danger');
-  remove.setAttribute('data-tab-group-id', id);
+  remove.classList.add('tab-group-remove', 'danger');
+  remove.dataset.tabGroupId = id;
   remove.appendChild(buttonText);
   return remove;
 };
@@ -59,8 +59,8 @@ const createTabListItem = (name, id) => {
   const listItem = document.createElement('li');
   const listItemContentElement = document.createElement('div');
   const listItemContent = document.createTextNode(name);
-  listItemContentElement.setAttribute('class', 'tab-group-list-item-content');
-  listItem.setAttribute('class', 'tab-group-list-item');
+  listItemContentElement.classList.add('tab-group-list-item-content');
+  listItem.classList.add('tab-group-list-item');
   listItemContentElement.appendChild(listItemContent);
   listItem.appendChild(listItemContentElement);
   listItem.appendChild(createOpenButton(id));
@@ -79,7 +79,7 @@ const createTabGroupList = (tabGroupData) => {
 const createEmptyTabGroupList = () => {
   const emptyList = document.createElement('div');
   const emptyListContent = document.createTextNode('No saved tab groups... yet');
-  emptyList.setAttribute('class', 'tab-group-list--empty');
+  emptyList.classList.add('tab-group-list--empty');
   emptyList.appendChild(emptyListContent);
   return emptyList;
 };
