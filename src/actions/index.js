@@ -7,6 +7,7 @@ const setSaveSelected = saveSelected => ({
   saveSelected,
 });
 
+// TODO: handle error case with catch and visualize it
 export const syncSaveSelected = saveSelected => dispatch =>
   setState({ saveSelected })
     .then(() => dispatch(setSaveSelected(saveSelected)));
