@@ -1,4 +1,4 @@
-const tabGroupList = (state = [], action) => {
+const tabGroupList = (state, action) => {
   switch (action.type) {
     default:
       return state;

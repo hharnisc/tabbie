@@ -1,4 +1,4 @@
-const tabGroupListControls = (state = { saveSelected: false }, action) => {
+const tabGroupListControls = (state, action) => {
   switch (action.type) {
     case 'SET_SAVE_SELECTED':
       return {
