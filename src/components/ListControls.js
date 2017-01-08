@@ -1,6 +1,6 @@
-let React = require('react');
+import React from 'react';
 
-module.exports = ({ saveSelected = false }) =>
+export default ({ saveSelected = false }) =>
   <div>
     <input type='text' />
     <button>Save { saveSelected ? 'Selected' : 'All'  } Tabs</button>

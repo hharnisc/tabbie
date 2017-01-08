@@ -1,7 +1,7 @@
-let React = require('react');
-let ListControls = require('./components/ListControls');
+import React from 'react';
+import ListControls from './components/ListControls';
 
-module.exports = () =>
+export default () =>
   <div>
     <h2>Saved Tab Groups</h2>
     <ListControls />
