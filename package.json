@@ -16,10 +16,11 @@
     "eslint-plugin-react": "^6.8.0",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "redux": "^3.6.0",
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "build": "browserify ./index.js -t babelify -o bundle.js",
-    "start": "watchify ./index.js -v -t babelify -o bundle.js"
+    "build": "browserify ./index.jsx --extension=jsx -t babelify -o bundle.js",
+    "start": "watchify ./index.jsx --extension=jsx -v -t babelify -o bundle.js"
   }
 }
