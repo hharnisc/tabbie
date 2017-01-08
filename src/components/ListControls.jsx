@@ -11,6 +11,7 @@ const ListControls = ({ onClickSetSaveSelected, saveSelected }) =>
         id="cb-save-selected-tabs"
         checked={saveSelected}
         onClick={() => onClickSetSaveSelected(!saveSelected)}
+        readOnly
       /> Only Save Selected Tabs
     </label>
   </div>;
