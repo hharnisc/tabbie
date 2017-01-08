@@ -10,7 +10,7 @@ import tabbieApp from './reducers';
 getState()
   .then((state) => {
     const store = createStore(tabbieApp, {
-      controls: {
+      tabGroupListControls: {
         saveSelected: state.saveSelected,
       },
     }, applyMiddleware(thunk));

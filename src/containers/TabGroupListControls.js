@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import ListControls from '../components/ListControls';
+import TabGroupListControls from '../components/TabGroupListControls';
 import { syncSaveSelected } from '../actions';
 
-const mapStateToProps = state => state.controls;
+const mapStateToProps = state => state.tabGroupListControls;
 const mapDispatchToProps = dispatch => ({
   onClickSetSaveSelected: saveSelected => dispatch(syncSaveSelected(saveSelected)),
 });
@@ -10,4 +10,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListControls);
+)(TabGroupListControls);

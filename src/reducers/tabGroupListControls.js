@@ -1,4 +1,4 @@
-const controls = (state = { saveSelected: false }, action) => {
+const tabGroupListControls = (state = { saveSelected: false }, action) => {
   switch (action.type) {
     case 'SET_SAVE_SELECTED':
       return {
@@ -9,4 +9,4 @@ const controls = (state = { saveSelected: false }, action) => {
   }
 };
 
-export default controls;
+export default tabGroupListControls;

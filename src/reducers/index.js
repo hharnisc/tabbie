@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import controls from './controls';
+import tabGroupListControls from './tabGroupListControls';
 
 const tabbieApp = combineReducers({
-  controls,
+  tabGroupListControls,
 });
 
 export default tabbieApp;
