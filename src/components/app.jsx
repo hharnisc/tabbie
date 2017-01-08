@@ -1,5 +1,5 @@
 import React from 'react';
-import TabGroupList from '../components/TabGroupList';
+import TabGroupList from '../containers/TabGroupList';
 import TabGroupListControls from '../containers/TabGroupListControls';
 
 export default () =>

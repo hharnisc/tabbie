@@ -9,12 +9,15 @@ import tabbieApp from './reducers';
 
 getState()
   .then((state) => {
-    const store = createStore(tabbieApp, {
+    const initialState = {
       tabGroupListControls: {
-        saveSelected: state.saveSelected,
+        saveSelected: state.saveSelected || false,
       },
-      tabGroupList: state.tabGroups,
-    }, applyMiddleware(thunk));
+      tabGroupList: {
+        tabGroups: state.tabGroups || [],
+      },
+    };
+    const store = createStore(tabbieApp, initialState, applyMiddleware(thunk));
     render(
       <Provider store={store}>
         <App />
