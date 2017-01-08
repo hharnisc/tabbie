@@ -13,6 +13,7 @@ getState()
       tabGroupListControls: {
         saveSelected: state.saveSelected,
       },
+      tabGroupList: state.tabGroups,
     }, applyMiddleware(thunk));
     render(
       <Provider store={store}>
