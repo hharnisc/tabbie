@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import ListControls from '../components/ListControls';
-import { setSaveSelected } from '../actions';
+import { syncSaveSelected } from '../actions';
 
 const mapStateToProps = state => state.controls;
 const mapDispatchToProps = dispatch => ({
-  onClickSetSaveSelected: saveSelected => dispatch(setSaveSelected(saveSelected)),
+  onClickSetSaveSelected: saveSelected => dispatch(syncSaveSelected(saveSelected)),
 });
 
 export default connect(

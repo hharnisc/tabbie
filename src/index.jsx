@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { getState } from './chromeStorage';
 import App from './components/app';
@@ -12,7 +13,7 @@ getState()
       controls: {
         saveSelected: state.saveSelected,
       },
-    });
+    }, applyMiddleware(thunk));
     render(
       <Provider store={store}>
         <App />
