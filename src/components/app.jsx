@@ -1,5 +1,5 @@
 import React from 'react';
-import ListControls from './components/ListControls';
+import ListControls from './ListControls';
 
 export default () =>
   <div>
