@@ -17,6 +17,7 @@ getState()
         tabGroups: state.tabGroups || [],
       },
     };
+    console.log('initialState', initialState);
     const store = createStore(tabbieApp, initialState, applyMiddleware(thunk));
     render(
       <Provider store={store}>

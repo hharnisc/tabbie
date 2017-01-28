@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import TabGroupListItem from '../components/TabGroupListItem';
+import { openTabGroup } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ownProps;
 const mapDispatchToProps = dispatch => ({
   onRemoveClick: () => console.log('remove'),
-  onOpenClick: () => console.log('open'),
+  onOpenClick: tabs => openTabGroup(tabs),
 });
 
 export default connect(

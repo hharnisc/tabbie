@@ -1,4 +1,5 @@
 import { setState } from '../chromeStorage';
+import { createTabs } from '../tabManager';
 
 const SET_SAVE_SELECTED = 'SET_SAVE_SELECTED';
 
@@ -11,3 +12,5 @@ const setSaveSelected = saveSelected => ({
 export const syncSaveSelected = saveSelected => dispatch =>
   setState({ saveSelected })
     .then(() => dispatch(setSaveSelected(saveSelected)));
+
+export const openTabGroup = tabs => createTabs(tabs);
