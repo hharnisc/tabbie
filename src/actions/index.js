@@ -1,6 +1,12 @@
 import { setState, getState } from '../chromeStorage';
-import { createTabs } from '../tabManager';
+import {
+  createTabs,
+  getSelectedTabs,
+  getAllTabs,
+  closeTabsWithIds,
+} from '../tabManager';
 
+export const ADD_TAB_GROUP = 'ADD_TAB_GROUP';
 export const SET_SAVE_SELECTED = 'SET_SAVE_SELECTED';
 export const REMOVE_TAB_GROUP = 'REMOVE_TAB_GROUP';
 export const SET_TAB_GROUP_NAME = 'SET_TAB_GROUP_NAME';
@@ -26,6 +32,12 @@ const setTabGroupName = tabGroupName => ({
   tabGroupName,
 });
 
+const addTabGroup = ({ name, tabs }) => ({
+  type: ADD_TAB_GROUP,
+  name,
+  tabs,
+});
+
 // TODO: handle error case with catch and visualize it
 export const syncSaveSelected = saveSelected => dispatch =>
   setState({ saveSelected })
@@ -48,10 +60,38 @@ export const tabGroupNameChange = tabGroupName => dispatch =>
     dispatch(setTabGroupName(tabGroupName)),
   ]);
 
-export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => dispatch => {
+const cleanTabs = tabs => tabs.map(tab => ({
+  url: tab.url,
+  pinned: tab.pinned,
+}));
+
+export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => (dispatch) => {
   if (!tabGroupName) {
     dispatch(setTabGroupError(true));
   } else {
-    console.log('save it');
+    const tabSelectFunction = saveSelected ? getSelectedTabs : getAllTabs;
+    let tabs;
+    // get the tabs to save
+    tabSelectFunction()
+      // hold onto the tabs context
+      .then(tabsToSave => (tabs = tabsToSave))
+      // get the current tab group state
+      .then(() => getState())
+      // parse out the tab groups
+      .then(state => state.tabGroups)
+      // save the new tab group
+      .then(tabGroups => setState({
+        tabGroups: [...tabGroups, { name: tabGroupName, tabs: cleanTabs(tabs) }],
+      }))
+      // sync the redux store
+      .then(() => dispatch(addTabGroup({ name: tabGroupName, tabs: cleanTabs(tabs) })))
+      // close tabs (if needed)
+      .then(() => {
+        if (close) {
+          closeTabsWithIds(tabs.map(tab => tab.id));
+        }
+      })
+      // clear the text input
+      .then(dispatch(setTabGroupName('')));
   }
 };

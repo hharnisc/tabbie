@@ -14,3 +14,24 @@ export const createTabs = tabs =>
       }),
     ))
     .then(tabPromises => Promise.all(tabPromises));
+
+export const getSelectedTabs = () => new Promise((resolve) => {
+  chrome.tabs.query({
+    highlighted: true,
+    lastFocusedWindow: true,
+  }, (tabs) => {
+    resolve(tabs);
+  });
+});
+
+export const getAllTabs = () => new Promise((resolve) => {
+  chrome.tabs.query({
+    lastFocusedWindow: true,
+  }, (tabs) => {
+    resolve(tabs);
+  });
+});
+
+export const closeTabsWithIds = tabIds => new Promise((resolve) => {
+  chrome.tabs.remove(tabIds, () => resolve());
+});
