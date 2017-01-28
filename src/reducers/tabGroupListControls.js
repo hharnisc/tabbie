@@ -6,13 +6,9 @@ import {
 const tabGroupListControls = (state = { saveSelected: false, tabGroupName: '' }, action) => {
   switch (action.type) {
     case SET_SAVE_SELECTED:
-      return {
-        saveSelected: action.saveSelected,
-      };
+      return { ...state, saveSelected: action.saveSelected };
     case TAB_GROUP_NAME_CHANGE:
-      return {
-        tabGroupName: action.tabGroupName,
-      };
+      return { ...state, tabGroupName: action.tabGroupName };
     default:
       return state;
   }

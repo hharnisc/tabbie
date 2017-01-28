@@ -4,6 +4,7 @@ const tabGroupList = (state = [], action) => {
   switch (action.type) {
     case REMOVE_TAB_GROUP:
       return {
+        ...state,
         tabGroups: state.tabGroups.filter((tabGroup, i) => i !== action.tabGroupKey),
       };
     default:

@@ -24,5 +24,8 @@
   "scripts": {
     "build": "browserify ./src/index.jsx --extension=jsx -t babelify -o bundle.js",
     "start": "watchify ./src/index.jsx --extension=jsx -v -t babelify -o bundle.js"
+  },
+  "devDependencies": {
+    "babel-preset-stage-0": "^6.22.0"
   }
 }
