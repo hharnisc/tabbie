@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react';
 
-const ListControls = ({ onClickSetSaveSelected, saveSelected }) =>
+const ListControls = ({
+  onClickSetSaveSelected,
+  onTabGroupNameChange,
+  saveSelected,
+  tabGroupName,
+}) =>
   <div>
-    <input type="text" />
+    <input type="text" onChange={onTabGroupNameChange} value={tabGroupName} />
     <button>Save { saveSelected ? 'Selected' : 'All' } Tabs</button>
     <button>Save & Close { saveSelected ? 'Selected' : 'All' } Tabs</button>
     <label htmlFor="cb-save-selected-tabs">
@@ -17,8 +22,10 @@ const ListControls = ({ onClickSetSaveSelected, saveSelected }) =>
   </div>;
 
 ListControls.propTypes = {
+  onTabGroupNameChange: PropTypes.func,
   onClickSetSaveSelected: PropTypes.func.isRequired,
   saveSelected: PropTypes.bool.isRequired,
+  tabGroupName: PropTypes.string,
 };
 
 export default ListControls;

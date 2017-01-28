@@ -3,6 +3,7 @@ import { createTabs } from '../tabManager';
 
 export const SET_SAVE_SELECTED = 'SET_SAVE_SELECTED';
 export const REMOVE_TAB_GROUP = 'REMOVE_TAB_GROUP';
+export const TAB_GROUP_NAME_CHANGE = 'TAB_GROUP_NAME_CHANGE';
 
 const setSaveSelected = saveSelected => ({
   type: SET_SAVE_SELECTED,
@@ -29,3 +30,8 @@ export const removeTabGroup = tabGroupKey => dispatch =>
       tabGroups: tabGroups.filter((tabGroup, i) => i !== tabGroupKey),
     }))
     .then(() => dispatch(setRemoveTabGroup(tabGroupKey)));
+
+export const tabGroupNameChange = tabGroupName => ({
+  type: TAB_GROUP_NAME_CHANGE,
+  tabGroupName,
+});
