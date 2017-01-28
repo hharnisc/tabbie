@@ -4,6 +4,7 @@ import { createTabs } from '../tabManager';
 export const SET_SAVE_SELECTED = 'SET_SAVE_SELECTED';
 export const REMOVE_TAB_GROUP = 'REMOVE_TAB_GROUP';
 export const TAB_GROUP_NAME_CHANGE = 'TAB_GROUP_NAME_CHANGE';
+export const SET_TAB_GROUP_ERROR = 'SET_TAB_GROUP_ERROR';
 
 const setSaveSelected = saveSelected => ({
   type: SET_SAVE_SELECTED,
@@ -13,6 +14,11 @@ const setSaveSelected = saveSelected => ({
 const setRemoveTabGroup = tabGroupKey => ({
   type: REMOVE_TAB_GROUP,
   tabGroupKey,
+});
+
+const setTabGroupError = tabGroupError => ({
+  type: SET_TAB_GROUP_ERROR,
+  tabGroupError,
 });
 
 // TODO: handle error case with catch and visualize it
@@ -35,3 +41,11 @@ export const tabGroupNameChange = tabGroupName => ({
   type: TAB_GROUP_NAME_CHANGE,
   tabGroupName,
 });
+
+export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => dispatch => {
+  if (!tabGroupName) {
+    dispatch(setTabGroupError(true));
+  } else {
+    console.log('save it');
+  }
+};
