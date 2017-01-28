@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import TabGroupListItem from './TabGroupListItem';
+import TabGroupListItem from '../containers/TabGroupListItem';
 import TabGroupListEmpty from './TabGroupListEmpty';
 
 const TabGroupList = ({ tabGroups }) =>
   <div>
     {
       tabGroups.length ?
-        tabGroups.map(tabGroup => <TabGroupListItem {...tabGroup} />) :
+        tabGroups.map((tabGroup, i) => <TabGroupListItem {...tabGroup} key={i} />) :
         <TabGroupListEmpty />
     }
   </div>;
