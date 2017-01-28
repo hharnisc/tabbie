@@ -14,7 +14,7 @@ const ListControls = ({
       onChange={onTabGroupNameChange}
       value={tabGroupName}
       style={{
-        borderColor: tabGroupError ? 'red' : 'default',
+        borderColor: tabGroupError ? 'red' : undefined,
       }}
     />
     <button
