@@ -6,7 +6,8 @@ const TabGroupList = ({ tabGroups }) =>
   <div>
     {
       tabGroups.length ?
-        tabGroups.map((tabGroup, i) => <TabGroupListItem {...tabGroup} key={i} />) :
+        tabGroups.map((tabGroup, i) =>
+          <TabGroupListItem {...tabGroup} tabGroupKey={i} key={i} />) :
         <TabGroupListEmpty />
     }
   </div>;
