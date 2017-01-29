@@ -10,11 +10,11 @@ const listItemName = {
 };
 
 const TabGroupListItem = ({ tabGroupKey, name, onRemoveClick, onOpenClick, tabs }) =>
-  <div style={listItemStyle}>
+  <li style={listItemStyle}>
     <span style={listItemName}>{ name }</span>
     <button onClick={() => onOpenClick(tabs)}>Open</button>
     <button onClick={() => onRemoveClick(tabGroupKey)}>Remove</button>
-  </div>;
+  </li>;
 
 TabGroupListItem.propTypes = {
   tabGroupKey: PropTypes.number,
