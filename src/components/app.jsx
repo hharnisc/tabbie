@@ -2,15 +2,21 @@ import React from 'react';
 import TabGroupList from '../containers/TabGroupList';
 import TabGroupListControls from '../containers/TabGroupListControls';
 
-const style = {
+const appStyle = {
   height: '40em',
   width: '30em',
   padding: '1em',
 };
 
+const titleStyle = {
+  marginTop: 0,
+};
+
 export default () =>
-  <div style={style}>
-    <h2>Saved Tab Groups</h2>
+  <div style={appStyle}>
+    <h1 style={titleStyle}>
+      Saved Tab Groups
+    </h1>
     <TabGroupList />
     <TabGroupListControls />
   </div>;
