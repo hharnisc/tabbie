@@ -6,6 +6,7 @@ import {
 import {
   buttonStyle,
   primaryButtonStyle,
+  hoveredButton,
 } from '../styles/button';
 
 const formStyle = {
@@ -33,6 +34,9 @@ const ListControls = ({
   saveSelected,
   tabGroupError,
   tabGroupName,
+  onSaveAndCloseMouseEnter,
+  onSaveAndCloseMouseLeave,
+  saveAndCloseHovered,
 }) =>
   <form style={formStyle}>
     <label htmlFor={'input-tab-group-name'}>
@@ -58,11 +62,16 @@ const ListControls = ({
       Save { saveSelected ? 'Selected' : 'All' } Tabs
     </button>
     <button
+      onMouseEnter={onSaveAndCloseMouseEnter}
+      onMouseLeave={onSaveAndCloseMouseLeave}
       onClick={(e) => {
         e.preventDefault();
         onSaveTabGroupClick({ tabGroupName, saveSelected, close: true });
       }}
-      style={{ ...buttonStyle, ...formButtonStyle }}
+      style={{
+        ...(saveAndCloseHovered ? hoveredButton : buttonStyle),
+        ...formButtonStyle,
+      }}
     >
       Save & Close { saveSelected ? 'Selected' : 'All' } Tabs
     </button>
@@ -87,6 +96,9 @@ ListControls.propTypes = {
   saveSelected: PropTypes.bool.isRequired,
   tabGroupError: PropTypes.bool,
   tabGroupName: PropTypes.string,
+  onSaveAndCloseMouseEnter: PropTypes.func,
+  onSaveAndCloseMouseLeave: PropTypes.func,
+  saveAndCloseHovered: PropTypes.bool,
 };
 
 export default ListControls;

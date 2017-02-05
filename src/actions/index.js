@@ -15,6 +15,7 @@ export const HOVER_TAB_GROUP_OPEN = 'HOVER_TAB_GROUP_OPEN';
 export const UNHOVER_TAB_GROUP_OPEN = 'UNHOVER_TAB_GROUP_OPEN';
 export const HOVER_TAB_GROUP_REMOVE = 'HOVER_TAB_GROUP_REMOVE';
 export const UNHOVER_TAB_GROUP_REMOVE = 'UNHOVER_TAB_GROUP_REMOVE';
+export const SET_SAVE_AND_CLOSE_HOVER_STATE = 'SET_SET_SAVE_AND_CLOSE_HOVER_STATE';
 
 const setSaveSelected = saveSelected => ({
   type: SET_SAVE_SELECTED,
@@ -46,6 +47,11 @@ const addTabGroup = ({ name, tabs }) => ({
 export const syncSaveSelected = saveSelected => dispatch =>
   setState({ saveSelected })
     .then(() => dispatch(setSaveSelected(saveSelected)));
+
+export const setSaveAndCloseHoverState = isHovering => ({
+  type: SET_SAVE_AND_CLOSE_HOVER_STATE,
+  isHovering,
+});
 
 export const hoverTabGroupOpen = tabGroupKey => ({
   type: HOVER_TAB_GROUP_OPEN,

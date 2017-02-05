@@ -4,6 +4,7 @@ import {
   syncSaveSelected,
   tabGroupNameChange,
   saveTabGroup,
+  setSaveAndCloseHoverState,
 } from '../actions';
 
 const mapStateToProps = state => state.tabGroupListControls;
@@ -12,6 +13,8 @@ const mapDispatchToProps = dispatch => ({
   onTabGroupNameChange: e => dispatch(tabGroupNameChange(e.target.value)),
   onSaveTabGroupClick: ({ tabGroupName, close, saveSelected }) =>
     dispatch(saveTabGroup({ tabGroupName, close, saveSelected })),
+  onSaveAndCloseMouseEnter: () => dispatch(setSaveAndCloseHoverState(true)),
+  onSaveAndCloseMouseLeave: () => dispatch(setSaveAndCloseHoverState(false)),
 });
 
 export default connect(
