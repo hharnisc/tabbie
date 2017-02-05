@@ -7,7 +7,11 @@ import {
   buttonStyle,
   primaryButtonStyle,
 } from '../styles/button';
-import { fullWidth } from '../styles/utils';
+
+const formStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+};
 
 const ListControls = ({
   onClickSetSaveSelected,
@@ -17,27 +21,24 @@ const ListControls = ({
   tabGroupError,
   tabGroupName,
 }) =>
-  <div>
+  <form style={formStyle}>
     <label htmlFor={'input-tab-group-name'}>New Tab Group Name</label>
     <input
       id="input-tab-group-name"
       onChange={onTabGroupNameChange}
       placeholder={'Work'}
       value={tabGroupName}
-      style={tabGroupError ?
-        { ...inputErrorStyle, ...fullWidth } :
-        { ...inputStyle, ...fullWidth }
-      }
+      style={tabGroupError ? inputErrorStyle : inputStyle}
     />
     <button
       onClick={() => onSaveTabGroupClick({ tabGroupName, saveSelected, close: false })}
-      style={{ ...primaryButtonStyle, ...fullWidth }}
+      style={primaryButtonStyle}
     >
       Save { saveSelected ? 'Selected' : 'All' } Tabs
     </button>
     <button
       onClick={() => onSaveTabGroupClick({ tabGroupName, saveSelected, close: true })}
-      style={{ ...buttonStyle, ...fullWidth }}
+      style={buttonStyle}
     >
       Save & Close { saveSelected ? 'Selected' : 'All' } Tabs
     </button>
@@ -50,7 +51,7 @@ const ListControls = ({
         readOnly
       /> Only Save Selected Tabs
     </label>
-  </div>;
+  </form>;
 
 ListControls.propTypes = {
   onTabGroupNameChange: PropTypes.func,
