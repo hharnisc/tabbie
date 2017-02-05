@@ -11,6 +11,8 @@ export const SET_SAVE_SELECTED = 'SET_SAVE_SELECTED';
 export const REMOVE_TAB_GROUP = 'REMOVE_TAB_GROUP';
 export const SET_TAB_GROUP_NAME = 'SET_TAB_GROUP_NAME';
 export const SET_TAB_GROUP_ERROR = 'SET_TAB_GROUP_ERROR';
+export const HOVER_TAB_GROUP_OPEN = 'HOVER_TAB_GROUP_OPEN';
+export const UNHOVER_TAB_GROUP_OPEN = 'UNHOVER_TAB_GROUP_OPEN';
 
 const setSaveSelected = saveSelected => ({
   type: SET_SAVE_SELECTED,
@@ -42,6 +44,16 @@ const addTabGroup = ({ name, tabs }) => ({
 export const syncSaveSelected = saveSelected => dispatch =>
   setState({ saveSelected })
     .then(() => dispatch(setSaveSelected(saveSelected)));
+
+export const hoverTabGroupOpen = tabGroupKey => ({
+  type: HOVER_TAB_GROUP_OPEN,
+  tabGroupKey,
+});
+
+export const unhoverTabGroupOpen = tabGroupKey => ({
+  type: UNHOVER_TAB_GROUP_OPEN,
+  tabGroupKey,
+});
 
 export const openTabGroup = tabs => createTabs(tabs);
 

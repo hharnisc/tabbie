@@ -16,6 +16,7 @@ getState()
       },
       tabGroupList: {
         tabGroups: state.tabGroups || [],
+        openHoverStates: {},
       },
     };
     const store = createStore(tabbieApp, initialState, applyMiddleware(thunk));

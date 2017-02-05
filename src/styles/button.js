@@ -23,3 +23,5 @@ export const primaryButtonStyle = {
   background: blue,
   color: white,
 };
+
+export const hoveredButton = { ...primaryButtonStyle };
