@@ -13,6 +13,8 @@ export const SET_TAB_GROUP_NAME = 'SET_TAB_GROUP_NAME';
 export const SET_TAB_GROUP_ERROR = 'SET_TAB_GROUP_ERROR';
 export const HOVER_TAB_GROUP_OPEN = 'HOVER_TAB_GROUP_OPEN';
 export const UNHOVER_TAB_GROUP_OPEN = 'UNHOVER_TAB_GROUP_OPEN';
+export const HOVER_TAB_GROUP_REMOVE = 'HOVER_TAB_GROUP_REMOVE';
+export const UNHOVER_TAB_GROUP_REMOVE = 'UNHOVER_TAB_GROUP_REMOVE';
 
 const setSaveSelected = saveSelected => ({
   type: SET_SAVE_SELECTED,
@@ -52,6 +54,16 @@ export const hoverTabGroupOpen = tabGroupKey => ({
 
 export const unhoverTabGroupOpen = tabGroupKey => ({
   type: UNHOVER_TAB_GROUP_OPEN,
+  tabGroupKey,
+});
+
+export const hoverTabGroupRemove = tabGroupKey => ({
+  type: HOVER_TAB_GROUP_REMOVE,
+  tabGroupKey,
+});
+
+export const unhoverTabGroupRemove = tabGroupKey => ({
+  type: UNHOVER_TAB_GROUP_REMOVE,
   tabGroupKey,
 });
 

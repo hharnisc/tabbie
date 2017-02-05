@@ -3,6 +3,7 @@ import {
   buttonStyle,
   warningButtonStyle,
   hoveredButton,
+  hoveredWarningButtonStyle,
 } from '../styles/button';
 
 const listItemStyle = {
@@ -23,6 +24,9 @@ const TabGroupListItem = ({
   onOpenMouseEnter,
   onOpenMouseLeave,
   openHovered,
+  onRemoveMouseEnter,
+  onRemoveMouseLeave,
+  removeHovered,
 }) =>
   <li style={listItemStyle}>
     <span style={listItemNameStyle}>{ name }</span>
@@ -35,8 +39,13 @@ const TabGroupListItem = ({
       open
     </button>
     <button
+      onMouseEnter={() => onRemoveMouseEnter(tabGroupKey)}
+      onMouseLeave={() => onRemoveMouseLeave(tabGroupKey)}
       onClick={() => onRemoveClick(tabGroupKey)}
-      style={{ ...warningButtonStyle, marginLeft: 10 }}
+      style={{
+        ...(removeHovered ? hoveredWarningButtonStyle : warningButtonStyle),
+        marginLeft: 10,
+      }}
     >
       remove
     </button>
@@ -50,6 +59,9 @@ TabGroupListItem.propTypes = {
   onOpenMouseEnter: PropTypes.func,
   onOpenMouseLeave: PropTypes.func,
   openHovered: PropTypes.bool,
+  onRemoveMouseEnter: PropTypes.func,
+  onRemoveMouseLeave: PropTypes.func,
+  removeHovered: PropTypes.bool,
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       pinned: PropTypes.bool,

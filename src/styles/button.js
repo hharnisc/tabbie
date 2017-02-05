@@ -25,3 +25,9 @@ export const primaryButtonStyle = {
 };
 
 export const hoveredButton = { ...primaryButtonStyle };
+
+export const hoveredWarningButtonStyle = {
+  ...buttonStyle,
+  background: red,
+  color: white,
+};

@@ -3,6 +3,8 @@ import {
   ADD_TAB_GROUP,
   HOVER_TAB_GROUP_OPEN,
   UNHOVER_TAB_GROUP_OPEN,
+  HOVER_TAB_GROUP_REMOVE,
+  UNHOVER_TAB_GROUP_REMOVE,
 } from '../actions';
 
 const tabGroupList = (state = [], action) => {
@@ -31,6 +33,22 @@ const tabGroupList = (state = [], action) => {
       return {
         ...state,
         openHoverStates,
+      };
+    }
+    case HOVER_TAB_GROUP_REMOVE: {
+      const removeHoverStates = { ...state.removeHoverStates };
+      removeHoverStates[action.tabGroupKey] = true;
+      return {
+        ...state,
+        removeHoverStates,
+      };
+    }
+    case UNHOVER_TAB_GROUP_REMOVE: {
+      const removeHoverStates = { ...state.removeHoverStates };
+      delete removeHoverStates[action.tabGroupKey];
+      return {
+        ...state,
+        removeHoverStates,
       };
     }
     default:
