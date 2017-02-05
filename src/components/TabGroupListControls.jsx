@@ -41,7 +41,7 @@ const ListControls = ({
     <input
       id="input-tab-group-name"
       onChange={onTabGroupNameChange}
-      placeholder={'Work'}
+      placeholder={'Ex. Yesterday\'s Work'}
       value={tabGroupName}
       style={tabGroupError ?
         { ...inputErrorStyle, ...formInputStyle } :
