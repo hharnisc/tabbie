@@ -16,6 +16,8 @@ const titleStyle = {
 
 const tabGroupListStyle = {
   flexGrow: 1,
+  maxHeight: '20em',
+  overflowY: 'auto',
 };
 
 export default () =>
