@@ -13,7 +13,6 @@ const listItemNameStyle = {
   flexGrow: 1,
 };
 
-
 const TabGroupListItem = ({ tabGroupKey, name, onRemoveClick, onOpenClick, tabs }) =>
   <li style={listItemStyle}>
     <span style={listItemNameStyle}>{ name }</span>
