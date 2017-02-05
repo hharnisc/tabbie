@@ -3,8 +3,6 @@ import TabGroupList from '../containers/TabGroupList';
 import TabGroupListControls from '../containers/TabGroupListControls';
 
 const appStyle = {
-  height: '40em',
-  width: '30em',
   padding: '1em',
 };
 
