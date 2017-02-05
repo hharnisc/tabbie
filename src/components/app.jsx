@@ -8,15 +8,17 @@ const appStyle = {
   flexDirection: 'column',
   height: '40em',
   width: '30em',
+  boxSizing: 'border-box',
 };
 
 const titleStyle = {
   marginTop: 0,
+  marginBottom: '0.5em',
 };
 
 const tabGroupListStyle = {
   flexGrow: 1,
-  maxHeight: '20em',
+  maxHeight: '17em',
   overflowY: 'auto',
 };
 

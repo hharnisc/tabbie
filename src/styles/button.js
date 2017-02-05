@@ -9,6 +9,7 @@ export const buttonStyle = {
   borderRadius: '3px',
   border: 'none',
   color: blue,
+  fontSize: '0.9em',
   padding: '0.5em',
 };
 

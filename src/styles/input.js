@@ -6,8 +6,8 @@ export const inputStyle = {
   border: '1px solid #808080',
   boxSizing: 'border-box',
   margin: 0,
-  fontSize: '1em',
-  padding: '0.75em',
+  fontSize: '0.9em',
+  padding: '1em',
 };
 
 export const inputErrorStyle = {
