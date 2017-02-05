@@ -13,6 +13,19 @@ const formStyle = {
   flexDirection: 'column',
 };
 
+const formInputStyle = {
+  margin: '1em 0',
+};
+
+const formButtonStyle = {
+  padding: '1em',
+  marginTop: '1em',
+};
+
+const formCheckboxStyle = {
+  marginTop: '1em',
+};
+
 const ListControls = ({
   onClickSetSaveSelected,
   onTabGroupNameChange,
@@ -22,30 +35,44 @@ const ListControls = ({
   tabGroupName,
 }) =>
   <form style={formStyle}>
-    <label htmlFor={'input-tab-group-name'}>New Tab Group Name</label>
+    <label htmlFor={'input-tab-group-name'}>
+      <strong>New Tab Group Name</strong>
+    </label>
     <input
       id="input-tab-group-name"
       onChange={onTabGroupNameChange}
       placeholder={'Work'}
       value={tabGroupName}
-      style={tabGroupError ? inputErrorStyle : inputStyle}
+      style={tabGroupError ?
+        { ...inputErrorStyle, ...formInputStyle } :
+        { ...inputStyle, ...formInputStyle }
+      }
     />
     <button
-      onClick={() => onSaveTabGroupClick({ tabGroupName, saveSelected, close: false })}
-      style={primaryButtonStyle}
+      onClick={(e) => {
+        e.preventDefault();
+        onSaveTabGroupClick({ tabGroupName, saveSelected, close: false });
+      }}
+      style={{ ...primaryButtonStyle, ...formButtonStyle }}
     >
       Save { saveSelected ? 'Selected' : 'All' } Tabs
     </button>
     <button
-      onClick={() => onSaveTabGroupClick({ tabGroupName, saveSelected, close: true })}
-      style={buttonStyle}
+      onClick={(e) => {
+        e.preventDefault();
+        onSaveTabGroupClick({ tabGroupName, saveSelected, close: true });
+      }}
+      style={{ ...buttonStyle, ...formButtonStyle }}
     >
       Save & Close { saveSelected ? 'Selected' : 'All' } Tabs
     </button>
-    <label htmlFor="cb-save-selected-tabs">
+    <label
+      style={formCheckboxStyle}
+      htmlFor={'cb-save-selected-tabs'}
+    >
       <input
-        type="checkbox"
-        id="cb-save-selected-tabs"
+        type={'checkbox'}
+        id={'cb-save-selected-tabs'}
         checked={saveSelected}
         onClick={() => onClickSetSaveSelected(!saveSelected)}
         readOnly
