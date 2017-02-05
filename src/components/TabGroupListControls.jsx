@@ -1,4 +1,8 @@
 import React, { PropTypes } from 'react';
+import {
+  inputStyle,
+  inputErrorStyle,
+} from '../styles/input';
 
 const ListControls = ({
   onClickSetSaveSelected,
@@ -9,13 +13,13 @@ const ListControls = ({
   tabGroupName,
 }) =>
   <div>
+    <label htmlFor={'input-tab-group-name'}>New Tab Group Name</label>
     <input
-      type="text"
+      id="input-tab-group-name"
       onChange={onTabGroupNameChange}
+      placeholder={'Work'}
       value={tabGroupName}
-      style={{
-        borderColor: tabGroupError ? 'red' : undefined,
-      }}
+      style={tabGroupError ? inputErrorStyle : inputStyle}
     />
     <button
       onClick={() => onSaveTabGroupClick({ tabGroupName, saveSelected, close: false })}
