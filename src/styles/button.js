@@ -1,10 +1,11 @@
 import {
   red,
   blue,
+  white,
 } from './colors';
 
 export const buttonStyle = {
-  background: '#fff',
+  background: white,
   borderRadius: '3px',
   border: 'none',
   color: blue,
@@ -14,4 +15,10 @@ export const buttonStyle = {
 export const warningButtonStyle = {
   ...buttonStyle,
   color: red,
+};
+
+export const primaryButtonStyle = {
+  ...buttonStyle,
+  background: blue,
+  color: white,
 };

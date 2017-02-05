@@ -3,6 +3,11 @@ import {
   inputStyle,
   inputErrorStyle,
 } from '../styles/input';
+import {
+  buttonStyle,
+  primaryButtonStyle,
+} from '../styles/button';
+import { fullWidth } from '../styles/utils';
 
 const ListControls = ({
   onClickSetSaveSelected,
@@ -19,15 +24,20 @@ const ListControls = ({
       onChange={onTabGroupNameChange}
       placeholder={'Work'}
       value={tabGroupName}
-      style={tabGroupError ? inputErrorStyle : inputStyle}
+      style={tabGroupError ?
+        { ...inputErrorStyle, ...fullWidth } :
+        { ...inputStyle, ...fullWidth }
+      }
     />
     <button
       onClick={() => onSaveTabGroupClick({ tabGroupName, saveSelected, close: false })}
+      style={{ ...primaryButtonStyle, ...fullWidth }}
     >
       Save { saveSelected ? 'Selected' : 'All' } Tabs
     </button>
     <button
       onClick={() => onSaveTabGroupClick({ tabGroupName, saveSelected, close: true })}
+      style={{ ...buttonStyle, ...fullWidth }}
     >
       Save & Close { saveSelected ? 'Selected' : 'All' } Tabs
     </button>

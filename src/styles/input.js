@@ -7,7 +7,6 @@ export const inputStyle = {
   boxSizing: 'border-box',
   margin: 0,
   padding: '0.5em',
-  width: '100%',
 };
 
 export const inputErrorStyle = {
