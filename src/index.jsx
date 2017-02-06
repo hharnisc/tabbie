@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { getState } from './chromeStorage';
 import App from './components/app';
 import tabbieApp from './reducers';
+import analytics from './middleware/analytics';
 
 getState()
   .then((state) => {
@@ -20,7 +21,7 @@ getState()
         removeHoverStates: {},
       },
     };
-    const store = createStore(tabbieApp, initialState, applyMiddleware(thunk));
+    const store = createStore(tabbieApp, initialState, applyMiddleware(thunk, analytics));
     render(
       <Provider store={store}>
         <App />

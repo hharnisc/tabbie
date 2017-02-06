@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   onRemoveClick: tabGroupKey => dispatch(removeTabGroup(tabGroupKey)),
-  onOpenClick: tabs => openTabGroup(tabs),
+  onOpenClick: tabs => dispatch(openTabGroup(tabs)),
   onOpenMouseEnter: tabGroupKey => dispatch(hoverTabGroupOpen(tabGroupKey)),
   onOpenMouseLeave: tabGroupKey => dispatch(unhoverTabGroupOpen(tabGroupKey)),
   onRemoveMouseEnter: tabGroupKey => dispatch(hoverTabGroupRemove(tabGroupKey)),
