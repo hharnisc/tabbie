@@ -1,35 +1,35 @@
-import ua from 'universal-analytics';
+/* eslint-disable no-undef*/
+// use global scoped google analytics since it doesn't mark every user as new
 import {
   ADD_TAB_GROUP,
   OPEN_TAB_GROUP,
   REMOVE_TAB_GROUP,
 } from '../actions';
 
-// track a page view
-const ga = ua('UA-89553254-1');
-ga.pageview('/').send();
-
 const analytics = () => next => (action) => {
   switch (action.type) {
     case ADD_TAB_GROUP:
-      ga.event({
-        ec: 'TabGroup',
-        ea: `save${action.close ? 'AndClose' : ''}`,
-        ev: action.tabs.length,
-      }).send();
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'TabGroup',
+        eventAction: `save${action.close ? 'AndClose' : ''}`,
+        eventValue: action.tabs.length,
+      });
       break;
     case OPEN_TAB_GROUP:
-      ga.event({
-        ec: 'TabGroup',
-        ea: 'open',
-        ev: action.tabs.length,
-      }).send();
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'TabGroup',
+        eventAction: 'open',
+        eventValue: action.tabs.length,
+      });
       break;
     case REMOVE_TAB_GROUP:
-      ga.event({
-        ec: 'TabGroup',
-        ea: 'remove',
-      }).send();
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'TabGroup',
+        eventAction: 'remove',
+      });
       break;
     default:
       break;
