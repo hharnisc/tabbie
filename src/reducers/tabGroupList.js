@@ -9,11 +9,15 @@ import {
 
 const tabGroupList = (state = [], action) => {
   switch (action.type) {
-    case REMOVE_TAB_GROUP:
+    case REMOVE_TAB_GROUP: {
+      const removeHoverStates = { ...state.removeHoverStates };
+      delete removeHoverStates[action.tabGroupKey];
       return {
         ...state,
         tabGroups: state.tabGroups.filter((tabGroup, i) => i !== action.tabGroupKey),
+        removeHoverStates,
       };
+    }
     case ADD_TAB_GROUP:
       return {
         ...state,
