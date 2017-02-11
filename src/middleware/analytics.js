@@ -26,10 +26,9 @@ const analytics = () => next => (action) => {
       }).send();
       break;
     case REMOVE_TAB_GROUP:
-      ga.event('TabGroup', 'remove').send();
       ga.event({
         ec: 'TabGroup',
-        ea: 'open',
+        ea: 'remove',
       }).send();
       break;
     default:
