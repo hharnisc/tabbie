@@ -14,6 +14,10 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 ## Release Notes
 
+**0.3.4**
+
+- Re-implemented with [React](https://facebook.github.io/react/)
+
 **0.3.3**
 
 - Preserve pinned tabs (fixes #13)
