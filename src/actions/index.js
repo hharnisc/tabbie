@@ -40,11 +40,6 @@ const addTabGroup = ({ name, tabs, tabIds, close }) => ({
   close,
 });
 
-const openTabs = tabs => ({
-  type: OPEN_TAB_GROUP,
-  tabs,
-});
-
 // TODO: handle error case with catch and visualize it
 export const syncSaveSelected = saveSelected => dispatch =>
   setState({ saveSelected })
@@ -75,9 +70,10 @@ export const unhoverTabGroupRemove = tabGroupKey => ({
   tabGroupKey,
 });
 
-export const openTabGroup = tabs => dispatch =>
-  createTabs(tabs)
-    .then(() => dispatch(openTabs(tabs)));
+export const openTabGroup = tabs => ({
+  type: OPEN_TAB_GROUP,
+  tabs,
+});
 
 export const removeTabGroup = tabGroupKey => ({
   type: REMOVE_TAB_GROUP,
