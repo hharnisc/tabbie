@@ -9,7 +9,6 @@ const tabManager = () => next => (action) => {
   switch (action.type) {
     case ADD_TAB_GROUP:
       if (action.close) {
-        console.log('action', action);
         closeTabsWithIds(action.tabIds);
       }
       break;

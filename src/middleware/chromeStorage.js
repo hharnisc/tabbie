@@ -7,7 +7,6 @@ import {
 const chromeStorage = store => next => (action) => {
   switch (action.type) {
     case ADD_TAB_GROUP:
-    console.log('store.getState()', store.getState());
       setState({
         tabGroups: [
           ...store.getState().tabGroupList.tabGroups,
@@ -16,6 +15,11 @@ const chromeStorage = store => next => (action) => {
       });
       break;
     case REMOVE_TAB_GROUP:
+      setState({
+        tabGroups:
+          store.getState().tabGroupList.tabGroups
+            .filter((tabGroup, i) => i !== action.tabGroupKey),
+      });
       break;
     default:
       break;

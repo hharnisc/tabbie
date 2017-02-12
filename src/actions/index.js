@@ -1,9 +1,8 @@
-import { setState, getState } from '../chromeStorage';
+import { setState } from '../chromeStorage';
 import {
   createTabs,
   getSelectedTabs,
   getAllTabs,
-  closeTabsWithIds,
 } from '../tabManager';
 
 export const ADD_TAB_GROUP = 'ADD_TAB_GROUP';
@@ -21,11 +20,6 @@ export const SET_SAVE_AND_CLOSE_HOVER_STATE = 'SET_SET_SAVE_AND_CLOSE_HOVER_STAT
 const setSaveSelected = saveSelected => ({
   type: SET_SAVE_SELECTED,
   saveSelected,
-});
-
-const setRemoveTabGroup = tabGroupKey => ({
-  type: REMOVE_TAB_GROUP,
-  tabGroupKey,
 });
 
 const setTabGroupError = tabGroupError => ({
@@ -85,14 +79,10 @@ export const openTabGroup = tabs => dispatch =>
   createTabs(tabs)
     .then(() => dispatch(openTabs(tabs)));
 
-// TODO: handle error case with catch and visualize it
-export const removeTabGroup = tabGroupKey => dispatch =>
-  getState()
-    .then(state => state.tabGroups)
-    .then(tabGroups => setState({
-      tabGroups: tabGroups.filter((tabGroup, i) => i !== tabGroupKey),
-    }))
-    .then(() => dispatch(setRemoveTabGroup(tabGroupKey)));
+export const removeTabGroup = tabGroupKey => ({
+  type: REMOVE_TAB_GROUP,
+  tabGroupKey,
+});
 
 export const tabGroupNameChange = tabGroupName => dispatch =>
   Promise.all([
