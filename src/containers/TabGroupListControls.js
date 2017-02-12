@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import TabGroupListControls from '../components/TabGroupListControls';
 import {
-  syncSaveSelected,
+  setSaveSelected,
   tabGroupNameChange,
   saveTabGroup,
   setSaveAndCloseHoverState,
@@ -9,7 +9,7 @@ import {
 
 const mapStateToProps = state => state.tabGroupListControls;
 const mapDispatchToProps = dispatch => ({
-  onClickSetSaveSelected: saveSelected => dispatch(syncSaveSelected(saveSelected)),
+  onClickSetSaveSelected: saveSelected => dispatch(setSaveSelected(saveSelected)),
   onTabGroupNameChange: e => dispatch(tabGroupNameChange(e.target.value)),
   onSaveTabGroupClick: ({ tabGroupName, close, saveSelected }) =>
     dispatch(saveTabGroup({ tabGroupName, close, saveSelected })),

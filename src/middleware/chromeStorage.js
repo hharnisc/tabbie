@@ -2,6 +2,7 @@ import { setState } from '../chromeStorage';
 import {
   ADD_TAB_GROUP,
   REMOVE_TAB_GROUP,
+  SET_SAVE_SELECTED,
 } from '../actions';
 
 const chromeStorage = store => next => (action) => {
@@ -20,6 +21,9 @@ const chromeStorage = store => next => (action) => {
           store.getState().tabGroupList.tabGroups
             .filter((tabGroup, i) => i !== action.tabGroupKey),
       });
+      break;
+    case SET_SAVE_SELECTED:
+      setState({ saveSelected: action.saveSelected });
       break;
     default:
       break;

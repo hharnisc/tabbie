@@ -1,6 +1,4 @@
-import { setState } from '../chromeStorage';
 import {
-  createTabs,
   getSelectedTabs,
   getAllTabs,
 } from '../tabManager';
@@ -16,11 +14,6 @@ export const UNHOVER_TAB_GROUP_OPEN = 'UNHOVER_TAB_GROUP_OPEN';
 export const HOVER_TAB_GROUP_REMOVE = 'HOVER_TAB_GROUP_REMOVE';
 export const UNHOVER_TAB_GROUP_REMOVE = 'UNHOVER_TAB_GROUP_REMOVE';
 export const SET_SAVE_AND_CLOSE_HOVER_STATE = 'SET_SET_SAVE_AND_CLOSE_HOVER_STATE';
-
-const setSaveSelected = saveSelected => ({
-  type: SET_SAVE_SELECTED,
-  saveSelected,
-});
 
 const setTabGroupError = tabGroupError => ({
   type: SET_TAB_GROUP_ERROR,
@@ -40,10 +33,10 @@ const addTabGroup = ({ name, tabs, tabIds, close }) => ({
   close,
 });
 
-// TODO: handle error case with catch and visualize it
-export const syncSaveSelected = saveSelected => dispatch =>
-  setState({ saveSelected })
-    .then(() => dispatch(setSaveSelected(saveSelected)));
+export const setSaveSelected = saveSelected => ({
+  type: SET_SAVE_SELECTED,
+  saveSelected,
+});
 
 export const setSaveAndCloseHoverState = isHovering => ({
   type: SET_SAVE_AND_CLOSE_HOVER_STATE,
