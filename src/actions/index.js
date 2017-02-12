@@ -37,11 +37,12 @@ export const resyncTabGroups = tabGroups => ({
   tabGroups,
 });
 
-export const addTabGroup = ({ name, tabs, sync }) => ({
+export const addTabGroup = ({ close, name, sync, tabs }) => ({
   type: ADD_TAB_GROUP,
+  close,
   name,
-  tabs,
   sync,
+  tabs,
 });
 
 export const setSaveSelected = ({ saveSelected, sync }) => ({
@@ -105,9 +106,10 @@ export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => (dispatch
     tabSelectFunction()
       .then(tabs => Promise.all([
         dispatch(addTabGroup({
+          close,
           name: tabGroupName,
-          tabs: cleanTabs(tabs),
           sync: true,
+          tabs: cleanTabs(tabs),
         })),
         close ? dispatch(closeTabGroup(tabs.map(tab => tab.id))) : null,
         dispatch(setTabGroupName('')),
