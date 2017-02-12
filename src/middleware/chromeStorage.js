@@ -6,11 +6,23 @@ import {
   ADD_TAB_GROUP,
   REMOVE_TAB_GROUP,
   SET_SAVE_SELECTED,
+  resyncTabGroups,
   setSaveSelected,
   addTabGroup,
 } from '../actions';
 
 const chromeStorage = (store) => {
+  chrome.storage.onChanged.addListener((changes) => {
+    const state = store.getState();
+    const { tabGroups } = state.tabGroupList;
+    const { saveSelected  } = state.tabGroupListControls;
+    if (changes.tabGroups && tabGroups !== changes.tabGroups.newValue) {
+      store.dispatch(resyncTabGroups(changes.tabGroups.newValue));
+    }
+    if (changes.saveSelected && saveSelected !== changes.saveSelected.newValue) {
+      store.dispatch(setSaveSelected({ saveSelected: changes.saveSelected.newValue }));
+    }
+  });
   getState()
     .then((state) => {
       store.dispatch(setSaveSelected({ saveSelected: state.saveSelected || false }));

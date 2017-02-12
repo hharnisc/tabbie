@@ -15,6 +15,7 @@ export const UNHOVER_TAB_GROUP_OPEN = 'UNHOVER_TAB_GROUP_OPEN';
 export const HOVER_TAB_GROUP_REMOVE = 'HOVER_TAB_GROUP_REMOVE';
 export const UNHOVER_TAB_GROUP_REMOVE = 'UNHOVER_TAB_GROUP_REMOVE';
 export const SET_SAVE_AND_CLOSE_HOVER_STATE = 'SET_SET_SAVE_AND_CLOSE_HOVER_STATE';
+export const RESYNC_TAB_GROUPS = 'RESYNC_TAB_GROUPS';
 
 const setTabGroupError = tabGroupError => ({
   type: SET_TAB_GROUP_ERROR,
@@ -29,6 +30,11 @@ const setTabGroupName = tabGroupName => ({
 const closeTabGroup = tabIds => ({
   type: CLOSE_TAB_GROUP,
   tabIds,
+});
+
+export const resyncTabGroups = tabGroups => ({
+  type: RESYNC_TAB_GROUPS,
+  tabGroups,
 });
 
 export const addTabGroup = ({ name, tabs, sync }) => ({

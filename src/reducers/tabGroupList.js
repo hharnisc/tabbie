@@ -5,6 +5,7 @@ import {
   UNHOVER_TAB_GROUP_OPEN,
   HOVER_TAB_GROUP_REMOVE,
   UNHOVER_TAB_GROUP_REMOVE,
+  RESYNC_TAB_GROUPS,
 } from '../actions';
 
 const tabGroupList = (state = {
@@ -13,6 +14,11 @@ const tabGroupList = (state = {
   removeHoverStates: {},
 }, action) => {
   switch (action.type) {
+    case RESYNC_TAB_GROUPS:
+      return {
+        ...state,
+        tabGroups: action.tabGroups,
+      };
     case REMOVE_TAB_GROUP: {
       const removeHoverStates = { ...state.removeHoverStates };
       delete removeHoverStates[action.tabGroupKey];
