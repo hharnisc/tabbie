@@ -15,6 +15,10 @@ const listItemNameStyle = {
   flexGrow: 1,
 };
 
+const tabCountStyle = {
+  opacity: 0.7,
+};
+
 const TabGroupListItem = ({
   tabGroupKey,
   name,
@@ -29,7 +33,10 @@ const TabGroupListItem = ({
   removeHovered,
 }) =>
   <li style={listItemStyle}>
-    <span style={listItemNameStyle}>{ name }</span>
+    <span style={listItemNameStyle}>
+      { name }
+      <small style={tabCountStyle}>{` (${tabs.length} Tabs)`}</small>
+    </span>
     <button
       onMouseEnter={() => onOpenMouseEnter(tabGroupKey)}
       onMouseLeave={() => onOpenMouseLeave(tabGroupKey)}
