@@ -7,7 +7,11 @@ import {
   UNHOVER_TAB_GROUP_REMOVE,
 } from '../actions';
 
-const tabGroupList = (state = [], action) => {
+const tabGroupList = (state = {
+  tabGroups: [],
+  openHoverStates: {},
+  removeHoverStates: {},
+}, action) => {
   switch (action.type) {
     case REMOVE_TAB_GROUP: {
       const removeHoverStates = { ...state.removeHoverStates };

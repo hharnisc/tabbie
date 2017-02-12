@@ -4,6 +4,7 @@ import {
 } from '../tabManager';
 
 export const ADD_TAB_GROUP = 'ADD_TAB_GROUP';
+export const CLOSE_TAB_GROUP = 'CLOSE_TAB_GROUP';
 export const OPEN_TAB_GROUP = 'OPEN_TAB_GROUP';
 export const SET_SAVE_SELECTED = 'SET_SAVE_SELECTED';
 export const REMOVE_TAB_GROUP = 'REMOVE_TAB_GROUP';
@@ -25,17 +26,22 @@ const setTabGroupName = tabGroupName => ({
   tabGroupName,
 });
 
-const addTabGroup = ({ name, tabs, tabIds, close }) => ({
+const closeTabGroup = tabIds => ({
+  type: CLOSE_TAB_GROUP,
+  tabIds,
+});
+
+export const addTabGroup = ({ name, tabs, sync }) => ({
   type: ADD_TAB_GROUP,
   name,
   tabs,
-  tabIds,
-  close,
+  sync,
 });
 
-export const setSaveSelected = saveSelected => ({
+export const setSaveSelected = ({ saveSelected, sync }) => ({
   type: SET_SAVE_SELECTED,
   saveSelected,
+  sync,
 });
 
 export const setSaveAndCloseHoverState = isHovering => ({
@@ -68,9 +74,10 @@ export const openTabGroup = tabs => ({
   tabs,
 });
 
-export const removeTabGroup = tabGroupKey => ({
+export const removeTabGroup = ({ tabGroupKey, sync }) => ({
   type: REMOVE_TAB_GROUP,
   tabGroupKey,
+  sync,
 });
 
 export const tabGroupNameChange = tabGroupName => dispatch =>
@@ -89,16 +96,15 @@ export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => (dispatch
     dispatch(setTabGroupError(true));
   } else {
     const tabSelectFunction = saveSelected ? getSelectedTabs : getAllTabs;
-    // get the tabs to save
     tabSelectFunction()
-      // sync the redux store
-      .then(tabs => dispatch(addTabGroup({
-        name: tabGroupName,
-        tabs: cleanTabs(tabs),
-        tabIds: tabs.map(tab => tab.id),
-        close,
-      })))
-      // clear the text input
-      .then(dispatch(setTabGroupName('')));
+      .then(tabs => Promise.all([
+        dispatch(addTabGroup({
+          name: tabGroupName,
+          tabs: cleanTabs(tabs),
+          sync: true,
+        })),
+        close ? dispatch(closeTabGroup(tabs.map(tab => tab.id))) : null,
+        dispatch(setTabGroupName('')),
+      ]));
   }
 };
