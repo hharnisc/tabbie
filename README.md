@@ -16,6 +16,11 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 **0.3.4**
 
+- Show a tab count in tab group items
+- Fixes #10
+
+**0.3.4**
+
 - Re-implemented with [React](https://facebook.github.io/react/)
 
 **0.3.3**
