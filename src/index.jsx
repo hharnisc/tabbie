@@ -7,6 +7,8 @@ import { getState } from './chromeStorage';
 import App from './components/app';
 import tabbieApp from './reducers';
 import analytics from './middleware/analytics';
+import chromeStorage from './middleware/chromeStorage';
+import tabManager from './middleware/tabManager';
 
 getState()
   .then((state) => {
@@ -21,7 +23,12 @@ getState()
         removeHoverStates: {},
       },
     };
-    const store = createStore(tabbieApp, initialState, applyMiddleware(thunk, analytics));
+    const store = createStore(tabbieApp, initialState, applyMiddleware(
+      thunk,
+      analytics,
+      chromeStorage,
+      tabManager,
+    ));
     render(
       <Provider store={store}>
         <App />

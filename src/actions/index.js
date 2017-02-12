@@ -38,10 +38,11 @@ const setTabGroupName = tabGroupName => ({
   tabGroupName,
 });
 
-const addTabGroup = ({ name, tabs, close }) => ({
+const addTabGroup = ({ name, tabs, tabIds, close }) => ({
   type: ADD_TAB_GROUP,
   name,
   tabs,
+  tabIds,
   close,
 });
 
@@ -109,31 +110,15 @@ export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => (dispatch
     dispatch(setTabGroupError(true));
   } else {
     const tabSelectFunction = saveSelected ? getSelectedTabs : getAllTabs;
-    let tabs;
     // get the tabs to save
     tabSelectFunction()
-      // hold onto the tabs context
-      .then(tabsToSave => (tabs = tabsToSave))
-      // get the current tab group state
-      .then(() => getState())
-      // parse out the tab groups
-      .then(state => state.tabGroups)
-      // save the new tab group
-      .then(tabGroups => setState({
-        tabGroups: [...tabGroups, { name: tabGroupName, tabs: cleanTabs(tabs) }],
-      }))
       // sync the redux store
-      .then(() => dispatch(addTabGroup({
+      .then(tabs => dispatch(addTabGroup({
         name: tabGroupName,
         tabs: cleanTabs(tabs),
+        tabIds: tabs.map(tab => tab.id),
         close,
       })))
-      // close tabs (if needed)
-      .then(() => {
-        if (close) {
-          closeTabsWithIds(tabs.map(tab => tab.id));
-        }
-      })
       // clear the text input
       .then(dispatch(setTabGroupName('')));
   }
