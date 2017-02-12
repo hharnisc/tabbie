@@ -1,6 +1,7 @@
 import {
   setState,
   getState,
+  onChange,
 } from '../chromeStorage';
 import {
   ADD_TAB_GROUP,
@@ -12,10 +13,10 @@ import {
 } from '../actions';
 
 const chromeStorage = (store) => {
-  chrome.storage.onChanged.addListener((changes) => {
+  onChange((changes) => {
     const state = store.getState();
     const { tabGroups } = state.tabGroupList;
-    const { saveSelected  } = state.tabGroupListControls;
+    const { saveSelected } = state.tabGroupListControls;
     if (changes.tabGroups && tabGroups !== changes.tabGroups.newValue) {
       store.dispatch(resyncTabGroups(changes.tabGroups.newValue));
     }

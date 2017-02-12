@@ -17,3 +17,5 @@ export const getState = () => new Promise((resolve, reject) => {
     }
   });
 });
+
+export const onChange = callback => chrome.storage.onChanged.addListener(callback);
