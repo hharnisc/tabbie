@@ -14,7 +14,7 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 ## Release Notes
 
-**0.3.4**
+**0.3.5**
 
 - Show a tab count in tab group items
 - Fixes #10
