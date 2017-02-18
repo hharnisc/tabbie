@@ -1,4 +1,5 @@
 import React from 'react';
+import { Router, Route, browserHistory } from 'react-router';
 import TabGroupListView from './TabGroupListView';
 
 const appStyle = {
@@ -10,5 +11,7 @@ const appStyle = {
 
 export default () =>
   <div style={appStyle}>
-    <TabGroupListView />
+    <Router history={browserHistory}>
+      <Route path="/popup.html" component={TabGroupListView} />
+    </Router>
   </div>;
