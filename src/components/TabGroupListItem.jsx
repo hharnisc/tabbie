@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import Button from './Button';
 
 const listItemStyle = {
@@ -24,7 +25,9 @@ const TabGroupListItem = ({
   <li style={listItemStyle}>
     <span style={listItemNameStyle}>
       { name }
-      <small style={tabCountStyle}>{` (${tabs.length} Tabs)`}</small>
+      <Link to={`/details/${tabGroupKey}`}>
+        <small style={tabCountStyle}>{` (${tabs.length} Tabs)`}</small>
+      </Link>
     </span>
     <span style={{ marginLeft: 10 }}>
       <Button
