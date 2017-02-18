@@ -1,10 +1,5 @@
 import React, { PropTypes } from 'react';
-import {
-  buttonStyle,
-  warningButtonStyle,
-  hoveredButton,
-  hoveredWarningButtonStyle,
-} from '../styles/button';
+import Button from './Button';
 
 const listItemStyle = {
   display: 'flex',
@@ -22,53 +17,39 @@ const tabCountStyle = {
 const TabGroupListItem = ({
   tabGroupKey,
   name,
-  onRemoveClick,
   onOpenClick,
+  onRemoveClick,
   tabs,
-  onOpenMouseEnter,
-  onOpenMouseLeave,
-  openHovered,
-  onRemoveMouseEnter,
-  onRemoveMouseLeave,
-  removeHovered,
 }) =>
   <li style={listItemStyle}>
     <span style={listItemNameStyle}>
       { name }
       <small style={tabCountStyle}>{` (${tabs.length} Tabs)`}</small>
     </span>
-    <button
-      onMouseEnter={() => onOpenMouseEnter(tabGroupKey)}
-      onMouseLeave={() => onOpenMouseLeave(tabGroupKey)}
-      onClick={() => onOpenClick(tabs)}
-      style={{ ...(openHovered ? hoveredButton : buttonStyle), marginLeft: 10 }}
-    >
-      open
-    </button>
-    <button
-      onMouseEnter={() => onRemoveMouseEnter(tabGroupKey)}
-      onMouseLeave={() => onRemoveMouseLeave(tabGroupKey)}
-      onClick={() => onRemoveClick(tabGroupKey)}
-      style={{
-        ...(removeHovered ? hoveredWarningButtonStyle : warningButtonStyle),
-        marginLeft: 10,
-      }}
-    >
-      remove
-    </button>
+    <span style={{ marginLeft: 10 }}>
+      <Button
+        hoverId={`tab-group-list-item/open-${tabGroupKey}`}
+        onClick={() => onOpenClick(tabs)}
+      >
+        open
+      </Button>
+    </span>
+    <span style={{ marginLeft: 10 }}>
+      <Button
+        hoverId={`tab-group-list-item/remove-${tabGroupKey}`}
+        onClick={() => onRemoveClick(tabGroupKey)}
+        type={'warning'}
+      >
+          remove
+        </Button>
+    </span>
   </li>;
 
 TabGroupListItem.propTypes = {
   tabGroupKey: PropTypes.number,
   name: PropTypes.string,
+  onOpenClick: PropTypes.func,
   onRemoveClick: PropTypes.func,
-  onOpenClick: PropTypes.func.isRequired,
-  onOpenMouseEnter: PropTypes.func,
-  onOpenMouseLeave: PropTypes.func,
-  openHovered: PropTypes.bool,
-  onRemoveMouseEnter: PropTypes.func,
-  onRemoveMouseLeave: PropTypes.func,
-  removeHovered: PropTypes.bool,
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       pinned: PropTypes.bool,

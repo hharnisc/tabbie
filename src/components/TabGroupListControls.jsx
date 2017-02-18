@@ -1,13 +1,9 @@
 import React, { PropTypes } from 'react';
+import Button from './Button';
 import {
   inputStyle,
   inputErrorStyle,
 } from '../styles/input';
-import {
-  buttonStyle,
-  primaryButtonStyle,
-  hoveredButton,
-} from '../styles/button';
 
 const formStyle = {
   display: 'flex',
@@ -19,7 +15,6 @@ const formInputStyle = {
 };
 
 const formButtonStyle = {
-  padding: '1em',
   marginTop: '1em',
 };
 
@@ -34,9 +29,6 @@ const ListControls = ({
   saveSelected,
   tabGroupError,
   tabGroupName,
-  onSaveAndCloseMouseEnter,
-  onSaveAndCloseMouseLeave,
-  saveAndCloseHovered,
 }) =>
   <form style={formStyle}>
     <label htmlFor={'input-tab-group-name'}>
@@ -52,29 +44,30 @@ const ListControls = ({
         { ...inputStyle, ...formInputStyle }
       }
     />
-    <button
-      onClick={(e) => {
-        e.preventDefault();
-        onSaveTabGroupClick({ tabGroupName, saveSelected, close: false });
-      }}
-      style={{ ...primaryButtonStyle, ...formButtonStyle }}
-    >
-      Save { saveSelected ? 'Selected' : 'All' } Tabs
-    </button>
-    <button
-      onMouseEnter={onSaveAndCloseMouseEnter}
-      onMouseLeave={onSaveAndCloseMouseLeave}
-      onClick={(e) => {
-        e.preventDefault();
-        onSaveTabGroupClick({ tabGroupName, saveSelected, close: true });
-      }}
-      style={{
-        ...(saveAndCloseHovered ? hoveredButton : buttonStyle),
-        ...formButtonStyle,
-      }}
-    >
-      Save & Close { saveSelected ? 'Selected' : 'All' } Tabs
-    </button>
+    <span style={formButtonStyle}>
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          onSaveTabGroupClick({ tabGroupName, saveSelected, close: false });
+        }}
+        type={'primary'}
+        fullWidth
+      >
+        Save { saveSelected ? 'Selected' : 'All' } Tabs
+      </Button>
+    </span>
+    <span style={formButtonStyle}>
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          onSaveTabGroupClick({ tabGroupName, saveSelected, close: true });
+        }}
+        hoverId={'tab-group-list-controls/save-and-close'}
+        fullWidth
+      >
+        Save & Close { saveSelected ? 'Selected' : 'All' } Tabs
+      </Button>
+    </span>
     <label
       style={formCheckboxStyle}
       htmlFor={'cb-save-selected-tabs'}
@@ -96,9 +89,6 @@ ListControls.propTypes = {
   saveSelected: PropTypes.bool.isRequired,
   tabGroupError: PropTypes.bool,
   tabGroupName: PropTypes.string,
-  onSaveAndCloseMouseEnter: PropTypes.func,
-  onSaveAndCloseMouseLeave: PropTypes.func,
-  saveAndCloseHovered: PropTypes.bool,
 };
 
 export default ListControls;

@@ -31,3 +31,8 @@ export const hoveredWarningButtonStyle = {
   background: red,
   color: white,
 };
+
+export const fullWidth = {
+  width: '100%',
+  padding: '1em',
+};
