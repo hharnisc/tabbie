@@ -1,12 +1,7 @@
 import React, { PropTypes } from 'react';
 import TabGroupListItem from '../containers/TabGroupListItem';
 import TabGroupListEmpty from './TabGroupListEmpty';
-
-const listStyle = {
-  listStyleType: 'none',
-  margin: 0,
-  padding: 0,
-};
+import { listStyle } from '../styles/list';
 
 const TabGroupList = ({ tabGroups }) =>
   <ul style={listStyle}>

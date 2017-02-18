@@ -1,11 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Button from './Button';
-
-const listItemStyle = {
-  display: 'flex',
-  padding: '0.5em 0',
-};
+import { listItemStyle } from '../styles/list';
 
 const listItemNameStyle = {
   flexGrow: 1,

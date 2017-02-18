@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
+import { listItemStyle } from '../styles/list';
 
 const TabGroupDetailsItem = ({ pinned, url }) =>
-  <div>{url} - pinned: {`${pinned}`}</div>;
+  <li style={listItemStyle}>
+    {url} - pinned: {`${pinned}`}
+  </li>;
 
 TabGroupDetailsItem.propTypes = {
   pinned: PropTypes.bool,

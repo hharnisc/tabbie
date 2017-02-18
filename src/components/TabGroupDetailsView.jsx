@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import TabGroupDetailsItem from './TabGroupDetailsItem';
 import titleStyle from '../styles/title';
+import { listStyle } from '../styles/list';
 
 const titleBarStyle = {
   display: 'flex',
@@ -22,8 +23,10 @@ const TabGroupDetailsView = ({
       </h1>
       <Link to={'/popup.html'}>back to tab groups</Link>
     </div>
-    {tabGroup.tabs.map((tab, i) =>
-      <TabGroupDetailsItem pinned={tab.pinned} url={tab.url} key={i} />)}
+    <ul style={listStyle}>
+      {tabGroup.tabs.map((tab, i) =>
+        <TabGroupDetailsItem pinned={tab.pinned} url={tab.url} key={i} />)}
+    </ul>
   </div>;
 
 TabGroupDetailsView.propTypes = {
