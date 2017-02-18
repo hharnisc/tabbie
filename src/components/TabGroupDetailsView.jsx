@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import titleStyle from '../styles/title';
 
 const TabGroupDetailsView = ({
@@ -8,6 +9,7 @@ const TabGroupDetailsView = ({
     <h1 style={titleStyle}>
       {tabGroup.name}
     </h1>
+    <Link to={'/popup.html'}>back to tab groups</Link>
   </div>;
 
 TabGroupDetailsView.propTypes = {
