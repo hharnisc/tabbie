@@ -1,4 +1,7 @@
 import {
+  unhover,
+} from '@bufferapp/redux-hover';
+import {
   getSelectedTabs,
   getAllTabs,
 } from '../tabManager';
@@ -10,11 +13,6 @@ export const SET_SAVE_SELECTED = 'SET_SAVE_SELECTED';
 export const REMOVE_TAB_GROUP = 'REMOVE_TAB_GROUP';
 export const SET_TAB_GROUP_NAME = 'SET_TAB_GROUP_NAME';
 export const SET_TAB_GROUP_ERROR = 'SET_TAB_GROUP_ERROR';
-export const HOVER_TAB_GROUP_OPEN = 'HOVER_TAB_GROUP_OPEN';
-export const UNHOVER_TAB_GROUP_OPEN = 'UNHOVER_TAB_GROUP_OPEN';
-export const HOVER_TAB_GROUP_REMOVE = 'HOVER_TAB_GROUP_REMOVE';
-export const UNHOVER_TAB_GROUP_REMOVE = 'UNHOVER_TAB_GROUP_REMOVE';
-export const SET_SAVE_AND_CLOSE_HOVER_STATE = 'SET_SET_SAVE_AND_CLOSE_HOVER_STATE';
 export const RESYNC_TAB_GROUPS = 'RESYNC_TAB_GROUPS';
 
 const setTabGroupError = tabGroupError => ({
@@ -51,41 +49,20 @@ export const setSaveSelected = ({ saveSelected, sync }) => ({
   sync,
 });
 
-export const setSaveAndCloseHoverState = isHovering => ({
-  type: SET_SAVE_AND_CLOSE_HOVER_STATE,
-  isHovering,
-});
-
-export const hoverTabGroupOpen = tabGroupKey => ({
-  type: HOVER_TAB_GROUP_OPEN,
-  tabGroupKey,
-});
-
-export const unhoverTabGroupOpen = tabGroupKey => ({
-  type: UNHOVER_TAB_GROUP_OPEN,
-  tabGroupKey,
-});
-
-export const hoverTabGroupRemove = tabGroupKey => ({
-  type: HOVER_TAB_GROUP_REMOVE,
-  tabGroupKey,
-});
-
-export const unhoverTabGroupRemove = tabGroupKey => ({
-  type: UNHOVER_TAB_GROUP_REMOVE,
-  tabGroupKey,
-});
-
 export const openTabGroup = tabs => ({
   type: OPEN_TAB_GROUP,
   tabs,
 });
 
-export const removeTabGroup = ({ tabGroupKey, sync }) => ({
-  type: REMOVE_TAB_GROUP,
-  tabGroupKey,
-  sync,
-});
+export const removeTabGroup = ({ tabGroupKey, sync }) => dispatch =>
+  Promise.all([
+    dispatch({
+      type: REMOVE_TAB_GROUP,
+      tabGroupKey,
+      sync,
+    }),
+    dispatch(unhover(`tab-group-list-item/remove-${tabGroupKey}`)),
+  ]);
 
 export const tabGroupNameChange = tabGroupName => dispatch =>
   Promise.all([
