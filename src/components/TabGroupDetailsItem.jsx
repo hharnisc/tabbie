@@ -20,12 +20,14 @@ const ellipsisStyle = {
 
 const renderUrl = (url) => {
   const parsedUrl = parse(url);
+  const pathAndHash = `${parsedUrl.pathname}${parsedUrl.hash}` !== '/' ?
+    (<div style={ellipsisStyle}>
+      <small>{parsedUrl.pathname}{parsedUrl.hash}</small>
+    </div>) : null;
   return (
     <div>
       <div style={ellipsisStyle}>{parsedUrl.protocol}{'//'}{parsedUrl.auth}{parsedUrl.host}</div>
-      <div style={ellipsisStyle}>
-        <small>{parsedUrl.pathname}{parsedUrl.hash}</small>
-      </div>
+      {pathAndHash}
     </div>
   );
 };
