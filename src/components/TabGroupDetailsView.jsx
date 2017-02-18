@@ -23,7 +23,7 @@ const TabGroupDetailsView = ({
       </h1>
       <Link to={'/popup.html'}>back to tab groups</Link>
     </div>
-    <ul style={listStyle}>
+    <ul style={{ ...listStyle }}>
       {tabGroup.tabs.map((tab, i) =>
         <TabGroupDetailsItem pinned={tab.pinned} url={tab.url} key={i} />)}
     </ul>

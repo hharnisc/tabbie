@@ -25,6 +25,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "uglify-js": "^2.7.5",
+    "url-parse": "^1.1.8",
     "watchify": "^3.7.0"
   },
   "scripts": {
