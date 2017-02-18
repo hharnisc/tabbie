@@ -1,10 +1,16 @@
 import React, { PropTypes } from 'react';
+import titleStyle from '../styles/title';
 
-const TabGroupDetails = ({
+const TabGroupDetailsView = ({
   tabGroup,
-}) => <div>{JSON.stringify(tabGroup, null, 2)}</div>;
+}) =>
+  <div>
+    <h1 style={titleStyle}>
+      {tabGroup.name}
+    </h1>
+  </div>;
 
-TabGroupDetails.propTypes = {
+TabGroupDetailsView.propTypes = {
   tabGroup: PropTypes.shape({
     name: PropTypes.string,
     tabs: PropTypes.arrayOf(
@@ -16,4 +22,4 @@ TabGroupDetails.propTypes = {
   }),
 };
 
-export default TabGroupDetails;
+export default TabGroupDetailsView;

@@ -1,11 +1,7 @@
 import React from 'react';
 import TabGroupList from '../containers/TabGroupList';
 import TabGroupListControls from '../containers/TabGroupListControls';
-
-const titleStyle = {
-  marginTop: 0,
-  marginBottom: '0.5em',
-};
+import titleStyle from '../styles/title';
 
 const tabGroupListStyle = {
   flexGrow: 1,
