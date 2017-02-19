@@ -26,6 +26,10 @@ const linkStyle = {
   whiteSpace: 'nowrap',
 };
 
+const listWrapper = {
+  overflowY: 'auto',
+};
+
 const TabGroupDetailsView = ({
   tabGroup,
 }) =>
@@ -36,7 +40,7 @@ const TabGroupDetailsView = ({
       </h1>
       <Link to={'/popup.html'} style={linkStyle}>« back</Link>
     </div>
-    <div>
+    <div style={listWrapper}>
       <ul style={{ ...listStyle }}>
         {tabGroup.tabs.map((tab, i) =>
           <TabGroupDetailsItem pinned={tab.pinned} url={tab.url} key={i} />)}
