@@ -18,11 +18,15 @@ const ellipsisStyle = {
   textOverflow: 'ellipsis',
 };
 
+const urlPathStyle = {
+  opacity: 0.7,
+};
+
 const renderUrl = (url) => {
   const parsedUrl = parse(url);
   const pathAndHash = `${parsedUrl.pathname}${parsedUrl.hash}` !== '/' ?
     (<div style={ellipsisStyle}>
-      <small>{parsedUrl.pathname}{parsedUrl.hash}</small>
+      <small style={urlPathStyle}>{parsedUrl.pathname}{parsedUrl.hash}</small>
     </div>) : null;
   return (
     <div>
