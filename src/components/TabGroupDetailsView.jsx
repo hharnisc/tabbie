@@ -16,6 +16,7 @@ const titleCustomStyle = {
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  marginRight: '1em',
 };
 
 const wrapperStyle = {
