@@ -14,6 +14,10 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 ## Release Notes
 
+**0.3.7**
+
+- Implement Tab Group Details view
+
 **0.3.6**
 
 - Track hover state with [@bufferapp/redux-hover](https://www.npmjs.com/package/@bufferapp/redux-hover)
