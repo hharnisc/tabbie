@@ -10,6 +10,7 @@ import tabbieApp from './reducers';
 import analytics from './middleware/analytics';
 import chromeStorage from './middleware/chromeStorage';
 import tabManager from './middleware/tabManager';
+import { screenView } from './actions';
 
 const appStyle = {
   padding: '2em',
@@ -29,8 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={store}>
       <div style={appStyle}>
         <Router history={browserHistory}>
-          <Route path="/details/:tabGroupKey" component={TabGroupDetailsView} />
-          <Route path="*" component={TabGroupListView} />
+          <Route
+            path="/details/:tabGroupKey"
+            component={TabGroupDetailsView}
+            onEnter={() => store.dispatch(screenView('TabGroupDetails'))}
+          />
+          <Route
+            path="*"
+            component={TabGroupListView}
+            onEnter={() => store.dispatch(screenView('TabGroupList'))}
+          />
         </Router>
       </div>
     </Provider>,

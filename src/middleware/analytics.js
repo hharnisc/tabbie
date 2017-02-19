@@ -4,6 +4,7 @@ import {
   ADD_TAB_GROUP,
   OPEN_TAB_GROUP,
   REMOVE_TAB_GROUP,
+  SCREEN_VIEW,
 } from '../actions';
 
 const analytics = () => next => (action) => {
@@ -29,6 +30,14 @@ const analytics = () => next => (action) => {
         hitType: 'event',
         eventCategory: 'TabGroup',
         eventAction: 'remove',
+      });
+      break;
+    case SCREEN_VIEW:
+      ga('send', {
+        hitType: 'screenView',
+        appName: 'Tabbie',
+        appVersion: chrome.runtime.getManifest().version,
+        screenName: action.screen,
       });
       break;
     default:
