@@ -8,6 +8,7 @@ import linkStyle from '../styles/link';
 const titleBarStyle = {
   display: 'flex',
   alignItems: 'baseline',
+  marginBottom: '0.5em',
 };
 
 const titleCustomStyle = {
