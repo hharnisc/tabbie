@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import TabGroupDetailsItem from './TabGroupDetailsItem';
 import titleStyle from '../styles/title';
 import { listStyle } from '../styles/list';
+import linkStyle from '../styles/link';
 
 const titleBarStyle = {
   display: 'flex',
@@ -22,7 +23,7 @@ const wrapperStyle = {
   flexDirection: 'column',
 };
 
-const linkStyle = {
+const customLinkStyle = {
   whiteSpace: 'nowrap',
 };
 
@@ -38,7 +39,7 @@ const TabGroupDetailsView = ({
       <h1 style={{ ...titleStyle, ...titleCustomStyle }}>
         {tabGroup.name}
       </h1>
-      <Link to={'/popup.html'} style={linkStyle}>« back</Link>
+      <Link to={'/popup.html'} style={{ ...linkStyle, ...customLinkStyle }}>« back</Link>
     </div>
     <div style={listWrapper}>
       <ul style={{ ...listStyle }}>

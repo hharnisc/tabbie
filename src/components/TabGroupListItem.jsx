@@ -2,13 +2,10 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Button from './Button';
 import { listItemStyle } from '../styles/list';
+import linkStyle from '../styles/link';
 
 const listItemNameStyle = {
   flexGrow: 1,
-};
-
-const tabCountStyle = {
-  opacity: 0.7,
 };
 
 const TabGroupListItem = ({
@@ -20,9 +17,9 @@ const TabGroupListItem = ({
 }) =>
   <li style={listItemStyle}>
     <span style={listItemNameStyle}>
-      { name }
-      <Link to={`/details/${tabGroupKey}`}>
-        <small style={tabCountStyle}>{` (${tabs.length} Tabs)`}</small>
+      { `${name} ` }
+      <Link to={`/details/${tabGroupKey}`} style={linkStyle}>
+        <small>{`(${tabs.length} Tabs)`}</small>
       </Link>
     </span>
     <span style={{ marginLeft: 10 }}>

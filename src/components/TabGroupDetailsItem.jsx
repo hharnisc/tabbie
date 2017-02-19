@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import parse from 'url-parse';
 import Button from './Button';
 import { listItemStyle } from '../styles/list';
+import { grey } from '../styles/colors';
 
 const urlStyle = {
   flexGrow: 1,
@@ -19,7 +20,7 @@ const ellipsisStyle = {
 };
 
 const urlPathStyle = {
-  opacity: 0.7,
+  color: grey,
 };
 
 const renderUrl = (url) => {
