@@ -11,22 +11,37 @@ const titleBarStyle = {
 
 const titleCustomStyle = {
   flexGrow: 1,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+};
+
+const wrapperStyle = {
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const linkStyle = {
+  whiteSpace: 'nowrap',
 };
 
 const TabGroupDetailsView = ({
   tabGroup,
 }) =>
-  <div>
+  <div style={wrapperStyle}>
     <div style={titleBarStyle}>
       <h1 style={{ ...titleStyle, ...titleCustomStyle }}>
         {tabGroup.name}
       </h1>
-      <Link to={'/popup.html'}>back to tab groups</Link>
+      <Link to={'/popup.html'} style={linkStyle}>« back</Link>
     </div>
-    <ul style={{ ...listStyle }}>
-      {tabGroup.tabs.map((tab, i) =>
-        <TabGroupDetailsItem pinned={tab.pinned} url={tab.url} key={i} />)}
-    </ul>
+    <div>
+      <ul style={{ ...listStyle }}>
+        {tabGroup.tabs.map((tab, i) =>
+          <TabGroupDetailsItem pinned={tab.pinned} url={tab.url} key={i} />)}
+      </ul>
+    </div>
   </div>;
 
 TabGroupDetailsView.propTypes = {
