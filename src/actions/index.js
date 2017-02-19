@@ -14,6 +14,7 @@ export const REMOVE_TAB_GROUP = 'REMOVE_TAB_GROUP';
 export const SET_TAB_GROUP_NAME = 'SET_TAB_GROUP_NAME';
 export const SET_TAB_GROUP_ERROR = 'SET_TAB_GROUP_ERROR';
 export const RESYNC_TAB_GROUPS = 'RESYNC_TAB_GROUPS';
+export const SCREEN_VIEW = 'SCREEN_VIEW';
 
 const setTabGroupError = tabGroupError => ({
   type: SET_TAB_GROUP_ERROR,
@@ -28,6 +29,11 @@ const setTabGroupName = tabGroupName => ({
 const closeTabGroup = tabIds => ({
   type: CLOSE_TAB_GROUP,
   tabIds,
+});
+
+export const screenView = screen => ({
+  type: SCREEN_VIEW,
+  screen,
 });
 
 export const resyncTabGroups = tabGroups => ({
