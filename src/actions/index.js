@@ -101,11 +101,12 @@ export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => (dispatch
   }
 };
 
-export const removeTab = ({ tabKey, sync }) => dispatch =>
+export const removeTab = ({ tabKey, tabGroupKey, sync }) => dispatch =>
   Promise.all([
     dispatch({
       type: REMOVE_TAB,
       tabKey,
+      tabGroupKey,
       sync,
     }),
     dispatch(unhover(`tab-group-details-item/remove-${tabKey}`)),

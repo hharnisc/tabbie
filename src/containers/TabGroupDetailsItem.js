@@ -5,8 +5,7 @@ import {
 } from '../actions';
 
 const mapDispatchToProps = dispatch => ({
-  // onRemoveClick: tabKey => dispatch(removeTab({ tabKey, sync: true })),
-  onRemoveClick: tabKey => dispatch(removeTab({ tabKey })),
+  onRemoveClick: ({ tabKey, tabGroupKey }) => dispatch(removeTab({ tabKey, tabGroupKey })),
 });
 
 export default connect(

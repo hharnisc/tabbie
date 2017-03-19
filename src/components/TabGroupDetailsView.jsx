@@ -35,6 +35,7 @@ const listWrapper = {
 
 const TabGroupDetailsView = ({
   tabGroup,
+  tabGroupKey,
 }) =>
   <div style={wrapperStyle}>
     <div style={titleBarStyle}>
@@ -48,6 +49,7 @@ const TabGroupDetailsView = ({
         {tabGroup.tabs.map((tab, i) =>
           <TabGroupDetailsItem
             tabKey={i}
+            tabGroupKey={tabGroupKey}
             pinned={tab.pinned}
             url={tab.url}
             key={i}
@@ -66,6 +68,7 @@ TabGroupDetailsView.propTypes = {
       }),
     ),
   }),
+  tabGroupKey: PropTypes.number,
 };
 
 export default TabGroupDetailsView;
