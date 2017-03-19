@@ -47,7 +47,7 @@ const TabGroupDetailsView = ({
       <ul style={{ ...listStyle }}>
         {tabGroup.tabs.map((tab, i) =>
           <TabGroupDetailsItem
-            tabDetailKey={i}
+            tabKey={i}
             pinned={tab.pinned}
             url={tab.url}
             key={i}

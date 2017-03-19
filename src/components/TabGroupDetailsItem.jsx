@@ -46,28 +46,28 @@ const renderPinned = () =>
     <Button type={'primary'}>pinned</Button>
   </div>;
 
-const renderRemove = ({ tabDetailKey, onRemoveClick }) =>
+const renderRemove = ({ tabKey, onRemoveClick }) =>
   <div>
     <Button
       type={'warning'}
-      hoverId={`tab-group-details-item/remove-${tabDetailKey}`}
-      onClick={() => onRemoveClick(tabDetailKey)}
+      hoverId={`tab-group-details-item/remove-${tabKey}`}
+      onClick={() => onRemoveClick(tabKey)}
     >
       remove
     </Button>
   </div>;
 
-const TabGroupDetailsItem = ({ pinned, url, tabDetailKey, onRemoveClick }) =>
+const TabGroupDetailsItem = ({ pinned, url, tabKey, onRemoveClick }) =>
   <li style={{ ...listItemStyle, ...customListStyle }}>
     <div style={{ ...urlStyle, ...ellipsisStyle }}>
       {renderUrl(url, pinned)}
     </div>
     {pinned ? renderPinned() : null}
-    {renderRemove({ tabDetailKey, onRemoveClick })}
+    {renderRemove({ tabKey, onRemoveClick })}
   </li>;
 
 TabGroupDetailsItem.propTypes = {
-  tabDetailKey: PropTypes.number,
+  tabKey: PropTypes.number,
   onRemoveClick: PropTypes.func,
   pinned: PropTypes.bool,
   url: PropTypes.string,
