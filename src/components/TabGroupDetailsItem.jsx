@@ -6,7 +6,7 @@ import { grey } from '../styles/colors';
 
 const urlStyle = {
   flexGrow: 1,
-  marginRight: '1em',
+  marginRight: '1rem',
 };
 
 const customListStyle = {
@@ -21,6 +21,10 @@ const ellipsisStyle = {
 
 const urlPathStyle = {
   color: grey,
+};
+
+const pinnedStyle = {
+  marginRight: '1rem',
 };
 
 const renderUrl = (url) => {
@@ -38,19 +42,33 @@ const renderUrl = (url) => {
 };
 
 const renderPinned = () =>
-  <div>
+  <div style={pinnedStyle}>
     <Button type={'primary'}>pinned</Button>
   </div>;
 
-const TabGroupDetailsItem = ({ pinned, url }) =>
+const renderRemove = ({ tabDetailKey, onRemoveClick }) =>
+  <div>
+    <Button
+      type={'warning'}
+      hoverId={`tab-group-details-item/remove-${tabDetailKey}`}
+      onClick={() => onRemoveClick(tabDetailKey)}
+    >
+      remove
+    </Button>
+  </div>;
+
+const TabGroupDetailsItem = ({ pinned, url, tabDetailKey, onRemoveClick }) =>
   <li style={{ ...listItemStyle, ...customListStyle }}>
     <div style={{ ...urlStyle, ...ellipsisStyle }}>
       {renderUrl(url, pinned)}
     </div>
     {pinned ? renderPinned() : null}
+    {renderRemove({ tabDetailKey, onRemoveClick })}
   </li>;
 
 TabGroupDetailsItem.propTypes = {
+  tabDetailKey: PropTypes.number,
+  onRemoveClick: PropTypes.func,
   pinned: PropTypes.bool,
   url: PropTypes.string,
 };
