@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import TabGroupDetailsItem from './TabGroupDetailsItem';
+import TabGroupDetailsItem from '../containers/TabGroupDetailsItem';
 import titleStyle from '../styles/title';
 import { listStyle } from '../styles/list';
 import linkStyle from '../styles/link';
@@ -35,6 +35,7 @@ const listWrapper = {
 
 const TabGroupDetailsView = ({
   tabGroup,
+  tabGroupKey,
 }) =>
   <div style={wrapperStyle}>
     <div style={titleBarStyle}>
@@ -46,7 +47,13 @@ const TabGroupDetailsView = ({
     <div style={listWrapper}>
       <ul style={{ ...listStyle }}>
         {tabGroup.tabs.map((tab, i) =>
-          <TabGroupDetailsItem pinned={tab.pinned} url={tab.url} key={i} />)}
+          <TabGroupDetailsItem
+            tabKey={i}
+            tabGroupKey={tabGroupKey}
+            pinned={tab.pinned}
+            url={tab.url}
+            key={i}
+          />)}
       </ul>
     </div>
   </div>;
@@ -61,6 +68,7 @@ TabGroupDetailsView.propTypes = {
       }),
     ),
   }),
+  tabGroupKey: PropTypes.number,
 };
 
 export default TabGroupDetailsView;

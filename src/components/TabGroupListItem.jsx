@@ -36,8 +36,8 @@ const TabGroupListItem = ({
         onClick={() => onRemoveClick(tabGroupKey)}
         type={'warning'}
       >
-          remove
-        </Button>
+        remove
+      </Button>
     </span>
   </li>;
 

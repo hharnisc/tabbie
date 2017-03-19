@@ -6,7 +6,7 @@ import { grey } from '../styles/colors';
 
 const urlStyle = {
   flexGrow: 1,
-  marginRight: '1em',
+  marginRight: '1rem',
 };
 
 const customListStyle = {
@@ -21,6 +21,10 @@ const ellipsisStyle = {
 
 const urlPathStyle = {
   color: grey,
+};
+
+const pinnedStyle = {
+  marginRight: '1rem',
 };
 
 const renderUrl = (url) => {
@@ -38,19 +42,44 @@ const renderUrl = (url) => {
 };
 
 const renderPinned = () =>
-  <div>
+  <div style={pinnedStyle}>
     <Button type={'primary'}>pinned</Button>
   </div>;
 
-const TabGroupDetailsItem = ({ pinned, url }) =>
+/* eslint-disable react/prop-types */
+
+const renderRemove = ({ tabKey, tabGroupKey, onRemoveClick }) =>
+  <div>
+    <Button
+      type={'warning'}
+      hoverId={`tab-group-details-item/remove-${tabKey}`}
+      onClick={() => onRemoveClick({ tabKey, tabGroupKey })}
+    >
+      remove
+    </Button>
+  </div>;
+
+/* eslint-enable react/prop-types */
+
+const TabGroupDetailsItem = ({
+  pinned,
+  url,
+  tabKey,
+  tabGroupKey,
+  onRemoveClick,
+}) =>
   <li style={{ ...listItemStyle, ...customListStyle }}>
     <div style={{ ...urlStyle, ...ellipsisStyle }}>
       {renderUrl(url, pinned)}
     </div>
     {pinned ? renderPinned() : null}
+    {renderRemove({ tabKey, tabGroupKey, onRemoveClick })}
   </li>;
 
 TabGroupDetailsItem.propTypes = {
+  tabKey: PropTypes.number,
+  tabGroupKey: PropTypes.number,
+  onRemoveClick: PropTypes.func,
   pinned: PropTypes.bool,
   url: PropTypes.string,
 };

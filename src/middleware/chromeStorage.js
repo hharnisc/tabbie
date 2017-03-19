@@ -7,6 +7,7 @@ import {
   ADD_TAB_GROUP,
   REMOVE_TAB_GROUP,
   SET_SAVE_SELECTED,
+  REMOVE_TAB,
   resyncTabGroups,
   setSaveSelected,
   addTabGroup,
@@ -56,6 +57,20 @@ const chromeStorage = (store) => {
           break;
         case SET_SAVE_SELECTED:
           setState({ saveSelected: action.saveSelected });
+          break;
+        case REMOVE_TAB:
+          setState({
+            tabGroups: store.getState().tabGroupList.tabGroups
+              .map((tabGroup, tabGroupKey) => {
+                if (tabGroupKey === action.tabGroupKey) {
+                  return {
+                    name: tabGroup.name,
+                    tabs: tabGroup.tabs.filter((tab, tabKey) => tabKey !== action.tabKey),
+                  };
+                }
+                return tabGroup;
+              }),
+          });
           break;
         default:
           break;

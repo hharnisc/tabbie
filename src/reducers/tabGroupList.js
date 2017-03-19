@@ -2,6 +2,7 @@ import {
   REMOVE_TAB_GROUP,
   ADD_TAB_GROUP,
   RESYNC_TAB_GROUPS,
+  REMOVE_TAB,
 } from '../actions';
 
 const tabGroupList = (state = { tabGroups: [] }, action) => {
@@ -21,6 +22,19 @@ const tabGroupList = (state = { tabGroups: [] }, action) => {
       return {
         ...state,
         tabGroups: [...state.tabGroups, { name: action.name, tabs: action.tabs }],
+      };
+    case REMOVE_TAB:
+      return {
+        ...state,
+        tabGroups: state.tabGroups.map((tabGroup, tabGroupKey) => {
+          if (tabGroupKey === action.tabGroupKey) {
+            return {
+              name: tabGroup.name,
+              tabs: tabGroup.tabs.filter((tab, tabKey) => tabKey !== action.tabKey),
+            };
+          }
+          return tabGroup;
+        }),
       };
     default:
       return state;

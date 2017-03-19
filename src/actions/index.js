@@ -15,6 +15,7 @@ export const SET_TAB_GROUP_NAME = 'SET_TAB_GROUP_NAME';
 export const SET_TAB_GROUP_ERROR = 'SET_TAB_GROUP_ERROR';
 export const RESYNC_TAB_GROUPS = 'RESYNC_TAB_GROUPS';
 export const SCREEN_VIEW = 'SCREEN_VIEW';
+export const REMOVE_TAB = 'REMOVE_TAB';
 
 const setTabGroupError = tabGroupError => ({
   type: SET_TAB_GROUP_ERROR,
@@ -99,3 +100,14 @@ export const saveTabGroup = ({ tabGroupName, close, saveSelected }) => (dispatch
       ]));
   }
 };
+
+export const removeTab = ({ tabKey, tabGroupKey, sync }) => dispatch =>
+  Promise.all([
+    dispatch({
+      type: REMOVE_TAB,
+      tabKey,
+      tabGroupKey,
+      sync,
+    }),
+    dispatch(unhover(`tab-group-details-item/remove-${tabKey}`)),
+  ]);
