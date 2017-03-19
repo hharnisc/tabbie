@@ -23,8 +23,8 @@ const tabGroupList = (state = { tabGroups: [] }, action) => {
         ...state,
         tabGroups: [...state.tabGroups, { name: action.name, tabs: action.tabs }],
       };
-    case REMOVE_TAB: {
-      const newState = {
+    case REMOVE_TAB:
+      return {
         ...state,
         tabGroups: state.tabGroups.map((tabGroup, tabGroupKey) => {
           if (tabGroupKey === action.tabGroupKey) {
@@ -36,8 +36,6 @@ const tabGroupList = (state = { tabGroups: [] }, action) => {
           return tabGroup;
         }),
       };
-      return newState;
-    }
     default:
       return state;
   }
