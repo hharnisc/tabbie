@@ -46,6 +46,8 @@ const renderPinned = () =>
     <Button type={'primary'}>pinned</Button>
   </div>;
 
+/* eslint-disable react/prop-types */
+
 const renderRemove = ({ tabKey, tabGroupKey, onRemoveClick }) =>
   <div>
     <Button
@@ -56,6 +58,8 @@ const renderRemove = ({ tabKey, tabGroupKey, onRemoveClick }) =>
       remove
     </Button>
   </div>;
+
+/* eslint-enable react/prop-types */
 
 const TabGroupDetailsItem = ({
   pinned,
