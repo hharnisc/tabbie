@@ -14,6 +14,10 @@ Chrome Web Store: https://chrome.google.com/webstore/detail/tabbie/aingjdeimmeke
 
 ## Release Notes
 
+**0.4.1**
+
+- Implement remove tab
+
 **0.3.7**
 
 - Implement Tab Group Details view
